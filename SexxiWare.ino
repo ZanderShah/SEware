@@ -74,6 +74,7 @@ void setup() {
   level[3] = GooseHunter;
 
   level[4] = SavageAdmissions;
+  level[5] = LockPicker;
 }
 
 void loop() {
