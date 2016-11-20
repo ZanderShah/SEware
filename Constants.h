@@ -15,6 +15,6 @@ const uint32_t POTENTIOMETER = PE_3;
 const int HYPE_THRESHOLD = 1250;
 const char *HYPE[] = { "----", "====", "####" };
 
-const char *LEVEL_NAMES[] = { "PARTY MODE", "GOOSE HUNTER" };
+const char *LEVEL_NAMES[] = { "PARTY MODE", "GOOSE HUNTER", "SAVAGE ADMISSIONS" };
 
 #endif

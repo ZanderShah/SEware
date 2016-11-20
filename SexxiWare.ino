@@ -53,7 +53,7 @@ typedef struct {
 OrbitInput obi;
 GameState gs;
 
-void (*level[4]) (OrbitInput *obi, GameState *gs);
+void (*level[sizeof(LEVEL_NAMES) / sizeof(LEVEL_NAMES[0]]) (OrbitInput *obi, GameState *gs);
 
 void setup() {
   UIsetup();
@@ -66,6 +66,7 @@ void setup() {
   level[1] = Selection;
   level[2] = GooseHunter;
   level[3] = GooseHunter;
+  level[4] = SavageAdmissions;
 }
 
 void loop() {
