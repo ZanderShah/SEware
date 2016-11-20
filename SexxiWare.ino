@@ -10,6 +10,7 @@
 
 typedef struct {
   bool switches[2];
+  bool pastButtons[2];
   bool buttons[2];
   float potential;
 } OrbitInput;
@@ -21,29 +22,43 @@ typedef struct {
 } Word;
 
 typedef struct {
-  int state;
+  int type;
+  int x1;
+  int y1;
+  int x2;
+  int y2;
+  char *bmp;
+} Shape;
 
-  int buttonCooldown[2];
-  
-  Word *words;
-  int n;
-  
+typedef struct {
+  int state;
+  bool needsReset;
   int selected;
+
+  Word *words;
+  int numWords;
+
+  Shape *shapes;
+  int numShapes;
 } GameState;
 
 OrbitInput obi;
 GameState gs;
 
-void (*level[5]) (OrbitInput *obi, GameState *gs);
+void (*level[9]) (OrbitInput *obi, GameState *gs);
 
 void setup() {
   UIsetup();
   GUIsetup();
   level[0] = MainMenu;
   level[1] = Selection;
-  level[2] = TestGame;
+  level[2] = TestGraphics;
   level[3] = TestGame;
   level[4] = TestGame;
+  level[5] = TestGame;
+  level[6] = TestGame;
+  level[7] = TestGame;
+  level[8] = TestGame;
 }
 
 void loop() {
@@ -52,8 +67,6 @@ void loop() {
   (*level[gs.state])(&obi, &gs);
   
   GUIloop(&gs);
-  
-  Sync(&obi, &gs);
 
   delay(33.33);
 }

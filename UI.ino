@@ -12,6 +12,7 @@ void UIloop(OrbitInput *obi) {
     obi->switches[i] = digitalRead(SWITCHES[i]);
   }
   for (int i = 0; i < BUTTON_COUNT; i++) {
+    obi->pastButtons[i] = obi->buttons[i];
     obi->buttons[i] = digitalRead(BUTTONS[i]);
   }
   obi->potential = analogRead(POTENTIOMETER);

@@ -16,8 +16,4 @@ const char *HYPE[] = { "----", "====", "####" };
 
 const char *LEVEL_NAMES[] = { "PARTY MODE", "GAME 1",  "GAME 2", "GAME 3", "GAME 4", "GAME 5", "GAME 6" };
 
-const int COOLDOWN = 175;
-
-const int CROSS = 2;
-
 #endif

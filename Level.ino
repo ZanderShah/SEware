@@ -1,14 +1,3 @@
-void Sync(OrbitInput *obi, GameState *gs) {
-  for (int i = 0; i < BUTTON_COUNT; i++) {
-    if (obi->buttons[i] && gs->buttonCooldown[i] == 0) {
-      gs->buttonCooldown[i] = COOLDOWN;
-    }
-    if (gs->buttonCooldown[i]) {
-      gs->buttonCooldown[i]--;
-    }
-  }
-}
-
 void Reset(GameState *gs) {
   free(gs->words);
   gs->words = NULL;
@@ -79,10 +68,10 @@ void Selection(OrbitInput *obi, GameState *gs) {
 
   strcpy(gs->words[1].w, LEVEL_NAMES[gs->selected]);
 
-  if (obi->buttons[1] && gs->buttonCooldown[1] == 0) {
+  if (obi->buttons[1] && obi->buttons[1] ^ obi->pastButtons[1]) {
     gs->selected = (gs->selected + 1) % (sizeof(LEVEL_NAMES) / sizeof(LEVEL_NAMES[0]));
   }
-  if (obi->buttons[0] && gs->buttonCooldown[0] == 0) {
+  if (obi->buttons[0] && obi->buttons[0] ^ obi->pastButtons[0]) {
     gs->state = gs->selected + 2;
     Reset(gs);
   } 
