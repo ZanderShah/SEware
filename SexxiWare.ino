@@ -10,9 +10,9 @@
 #include "Constants.h"
 
 typedef struct {
-  bool switches[2];
-  bool pastButtons[2];
-  bool buttons[2];
+  bool switches[SWITCH_COUNT];
+  bool pastButtons[BUTTON_COUNT];
+  bool buttons[BUTTON_COUNT];
   float potential;
 } OrbitInput;
 
@@ -52,7 +52,6 @@ typedef struct {
 
 OrbitInput obi;
 GameState gs;
-
 void (*level[TOTAL_LEVELS]) (OrbitInput *obi, GameState *gs);
 
 void setup() {

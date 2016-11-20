@@ -1,29 +1,42 @@
+Shape CreateShape() {
+  Shape ret;
+  ret.type = 1;
+  ret.x1 = - rand() % 100;
+  ret.y1 = rand() % 15;
+  ret.x2 = ret.x1 + 15;
+  ret.y2 = ret.y1 + 15;
+  return ret;
+}
+
 void SavageAdmissions(OrbitInput *obi, GameState *gs) {
   if (gs->needsReset) {
-    SetMemory(gs, 1, 1);
-    
-    strcpy(gs->words[0].w, "TOP FUCKIGN KEK");
-    gs->words[0].x = 0;
-    gs->words[0].y = 0;
-
+    SetMemory(gs, 0, 5);
+   
     gs->shapes[0].type = 1;
-    gs->shapes[0].x1 = 0;
-    gs->shapes[0].y1 = 15;
-    gs->shapes[0].x2 = 15;
-    gs->shapes[0].y2 = 30;
+    gs->shapes[0].x1 = 100;
+    gs->shapes[0].y1 = 0;
+    gs->shapes[0].x2 = 100;
+    gs->shapes[0].y2 = 32;
+
+    for (int i = 1; i < gs->numShapes; i++) {
+      gs->shapes[i].type = 1;
+      gs->shapes[i].x1 = 101;
+    }
 
     gs->needsReset = false;
   }
 
-  gs->shapes[0].x1++;
-  gs->shapes[0].x2++;
+  for (int i = 1; i < gs->numShapes; i++)
+    if (gs->shapes[i].x1 > 100) {
+      gs->shapes[i] = CreateShape();
+    }
 
-  if (gs->shapes[0].x1 >= 130) {
-    gs->shapes[0].x1 = 0;
-    gs->shapes[0].x2 = 15;
-  }
+  for (int i = 1; i < gs->numShapes; i++)
+    if (gs->shapes[i].x1 <= 100) {
+      gs->shapes[i].x1++;
+      gs->shapes[i].x2++;
+    }
 
-  // Checking for party temporarily since party maps to goosehunter
   if (gs->state != SAVAGE_ADMISSIONS) {
     Reset(gs);
   }
