@@ -27,10 +27,8 @@ typedef struct {
 
 typedef struct {
   int type;
-  int x1;
-  int y1;
-  int x2;
-  int y2;
+  Position pos;
+  int width,height;
   char *bmp;
 } Shape;
 
