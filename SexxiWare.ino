@@ -56,8 +56,6 @@ typedef struct {
 OrbitInput obi;
 GameState gs;
 
-
-
 void (*level[TOTAL_LEVELS]) (OrbitInput *obi, GameState *gs);
 
 void setup() {
@@ -72,7 +70,6 @@ void setup() {
   level[1] = Selection;
   level[2] = GooseHunter;
   level[3] = GooseHunter;
-
   level[4] = SavageAdmissions;
   level[5] = LockPicker;
 }

@@ -1,7 +1,8 @@
-double epsilon = 20;
-double solution[] ={0,0,0};
+double epsilon = 35;
+double solution[] = { 0,0,0 };
 int initialized = 0;
-int curSolution =0;
+int curSolution = 0;
+
 void LockPicker(OrbitInput *obi, GameState *gs) {
   if (gs->needsReset) {
     SetMemory(gs, 1, 1);
@@ -18,13 +19,14 @@ void LockPicker(OrbitInput *obi, GameState *gs) {
 
     gs->needsReset = false;
   }
+  
   if (!initialized){//set the solution!
     initialized = 1;
     //srand(time(NULL));
-    for (int i =0; i < 3;i++){
-      solution[i] =(rand() % (4000 + 1 - 100)) + 100;
-      while (i >0 && fabs(solution[i]-solution[i]-1) <500){
-        solution[i] =(rand() % (4000 + 1 - 100)) + 100;
+    for (int i = 0; i < 3 ;i++){
+      solution[i] = (rand() % (4000 + 1 - 100)) + 100;
+      while (i > 0 && fabs(solution[i]-solution[i - 1]) < 500){
+        solution[i] = (rand() % (4000 + 1 - 100)) + 100;
       }
     }
 
