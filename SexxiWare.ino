@@ -13,9 +13,9 @@
 #define LED GREEN_LED
 
 typedef struct {
-  bool switches[2];
-  bool pastButtons[2];
-  bool buttons[2];
+  bool switches[SWITCH_COUNT];
+  bool pastButtons[BUTTON_COUNT];
+  bool buttons[BUTTON_COUNT];
   float potential;
 } OrbitInput;
 
@@ -56,7 +56,9 @@ typedef struct {
 OrbitInput obi;
 GameState gs;
 
-void (*level[5]) (OrbitInput *obi, GameState *gs);
+
+
+void (*level[TOTAL_LEVELS]) (OrbitInput *obi, GameState *gs);
 
 void setup() {
   pinMode(LED, OUTPUT); 
@@ -70,7 +72,8 @@ void setup() {
   level[1] = Selection;
   level[2] = GooseHunter;
   level[3] = GooseHunter;
-  level[4] = LockPicker;
+
+  level[4] = SavageAdmissions;
 }
 
 void loop() {
