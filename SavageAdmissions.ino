@@ -1,8 +1,8 @@
-void GooseHunter(OrbitInput *obi, GameState *gs) {
+void SavageAdmissions(OrbitInput *obi, GameState *gs) {
   if (gs->needsReset) {
     SetMemory(gs, 1, 1);
     
-    strcpy(gs->words[0].w, "~ WEW LAD ~");
+    strcpy(gs->words[0].w, "TOP FUCKIGN KEK");
     gs->words[0].x = 0;
     gs->words[0].y = 0;
 
@@ -24,7 +24,7 @@ void GooseHunter(OrbitInput *obi, GameState *gs) {
   }
 
   // Checking for party temporarily since party maps to goosehunter
-  if (gs->state != GOOSE_HUNTER && gs->state != PARTY) {
+  if (gs->state != SAVAGE_ADMISSIONS) {
     Reset(gs);
   }
 }

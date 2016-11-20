@@ -53,7 +53,7 @@ typedef struct {
 OrbitInput obi;
 GameState gs;
 
-void (*level[sizeof(LEVEL_NAMES) / sizeof(LEVEL_NAMES[0]]) (OrbitInput *obi, GameState *gs);
+void (*level[TOTAL_LEVELS]) (OrbitInput *obi, GameState *gs);
 
 void setup() {
   UIsetup();
