@@ -7,7 +7,10 @@
 #include <OrbitOledGrph.h>
 #include <string.h>
 #include <math.h>
+#include <stdlib.h>
+#include <time.h>
 #include "Constants.h"
+#define LED GREEN_LED
 
 typedef struct {
   bool switches[2];
@@ -53,9 +56,10 @@ typedef struct {
 OrbitInput obi;
 GameState gs;
 
-void (*level[4]) (OrbitInput *obi, GameState *gs);
+void (*level[5]) (OrbitInput *obi, GameState *gs);
 
 void setup() {
+  pinMode(LED, OUTPUT); 
   UIsetup();
   GUIsetup();
   
@@ -66,6 +70,7 @@ void setup() {
   level[1] = Selection;
   level[2] = GooseHunter;
   level[3] = GooseHunter;
+  level[4] = LockPicker;
 }
 
 void loop() {
