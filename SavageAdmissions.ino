@@ -33,7 +33,7 @@ void SavageAdmissions(OrbitInput *obi, GameState *gs) {
     gs->shapes[0].width = 0;
     gs->shapes[0].height = 32;
 
-    gs->shapes[1].type = 1;
+    gs->shapes[1].type = 2;
     gs->shapes[1].pos.x = 115;
     gs->shapes[1].pos.dX = 115;
     gs->shapes[1].pos.y = 10;

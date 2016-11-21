@@ -35,6 +35,9 @@ void GUIloop(GameState *gs) {
         case 1: 
           OrbitOledDrawRect(x2, y2);
           break;
+        case 2:
+          Draw(&(gs->shapes[i]));
+          break;
       }
     }
   }
