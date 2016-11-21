@@ -1,13 +1,15 @@
 Shape CreateShape() {
   Shape ret;
   ret.type = 1;
-  ret.pos.x = - rand() % 100;
+  ret.pos.x = - 10;
   ret.pos.dX = ret.pos.x;
-  ret.pos.y = rand() % 15;
+  ret.pos.y = 10;
   ret.pos.dY = ret.pos.y;
   ret.width = 15;
   ret.height = 15;
   ret.pos.vX = rand() % 30 + 10;
+  ret.pos.vY=0;
+  ret.pos.prevTime=millis();
   return ret;
 }
 
