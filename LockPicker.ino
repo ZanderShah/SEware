@@ -11,7 +11,8 @@ void LockPicker(OrbitInput *obi, GameState *gs) {
     gs->words[0].y = 0;
     gs->words[1].x = 0;
     gs->words[1].y = 20;
-    strcpy(gs->words[0].w, "|");
+    strcpy(gs->words[1].w, "|");
+
     
     gs->shapes[0].type = 1;
     gs->shapes[0].pos.x = 0;
@@ -34,7 +35,7 @@ void LockPicker(OrbitInput *obi, GameState *gs) {
       }
     }
 
-    strcpy(gs->words[0].w, "Pick a lock!");
+    strcpy(gs->words[0].w, "Pick a lock: ");
     gs->words[0].x = 0;
     gs->words[0].y = 0;
 
@@ -42,16 +43,17 @@ void LockPicker(OrbitInput *obi, GameState *gs) {
   
 
   double curVal = (double) obi->potential;
-  gs->words[1].x = (int) ((curVal/4096.0) * 32);
+  gs->words[1].x = (int) ((curVal/4390.0) * 128);
   if (fabs(curVal - solution[curSolution]) <epsilon ){
     digitalWrite(LED, HIGH);
-    strcpy(gs->words[0].w, "O");
+    strcpy(gs->words[1].w, "O");
     if (obi->buttons[0] || obi->buttons[1]){
       curSolution ++;
+      strcat(gs->words[0].w, "x");
     }
   }else{
     digitalWrite(LED, LOW);
-    strcpy(gs->words[0].w, "|");
+    strcpy(gs->words[1].w, "|");
   }
 
   if (curSolution >=3){//win

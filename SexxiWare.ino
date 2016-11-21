@@ -73,6 +73,7 @@ void setup() {
   level[4] = SavageAdmissions;
   level[5] = LockPicker;
   level[6] = MathPuzzle;
+  level[7] = GooseJumper;
 }
 
 void loop() {
