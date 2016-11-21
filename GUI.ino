@@ -2,6 +2,17 @@ void GUIsetup() {
   OrbitOledInit();
 }
 
+void Draw(Shape *pic) {
+  for (int i = 0; i < pic->width; i++) {
+    for (int j = 0; j < pic->height; j++) {
+      if (pic->bmp[i][j]) {
+        OrbitOledMoveTo(pic->pos.x + i, pic->pos.y + j);
+        OrbitOledDrawPixel();
+      }
+    }
+  }
+}
+
 void GUIloop(GameState *gs) {
   OrbitOledClearBuffer();
 
