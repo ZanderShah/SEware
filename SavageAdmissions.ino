@@ -45,9 +45,9 @@ void SavageAdmissions(OrbitInput *obi, GameState *gs) {
     gs->needsReset = false;
   }
 
-  if (obi->buttons[0] && gs->shapes[1].pos.y > 0) {
+  if (obi->buttons[0] && gs->shapes[1].pos.y <132) {
     gs->shapes[1].pos.vY = 20;
-  } else if (obi->buttons[1] && gs->shapes[1].pos.y < 132) {
+  } else if (obi->buttons[1] && gs->shapes[1].pos.y >0) {
     gs->shapes[1].pos.vY = -20;
   } else {
     gs->shapes[1].pos.vY = 0;

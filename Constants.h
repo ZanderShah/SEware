@@ -8,6 +8,7 @@ const int PARTY = 2;
 const int GOOSE_HUNTER = 3;
 const int SAVAGE_ADMISSIONS = 4;
 const int LOCK_PICKER = 5;
+const int MATH_PUZZLE=6;
 
 const uint32_t SWITCH_COUNT = 2;
 const uint32_t SWITCHES[SWITCH_COUNT] = { PA_6, PA_7 };
@@ -18,7 +19,7 @@ const uint32_t POTENTIOMETER = PE_3;
 const int HYPE_THRESHOLD = 1250;
 const char *HYPE[] = { "----", "====", "####" };
 
-const char *LEVEL_NAMES[] = { "PARTY MODE", "GOOSE HUNTER", "SAV ADMISSIONS", "LOCK PICKER" };
+const char *LEVEL_NAMES[] = { "PARTY MODE", "GOOSE HUNTER", "SAV ADMISSIONS", "LOCK PICKER","MATH PUZZLE" };
 
 const int EPS = 3;
 
