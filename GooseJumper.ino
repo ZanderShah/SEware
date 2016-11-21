@@ -1,10 +1,20 @@
 
-Position playerPos;
 int started=0;
+
+bool gooseImg[8][10] = {{0,0,0,0,0,0,0,0,0,0},
+                        {0,0,0,0,0,0,0,0,1,1},
+                        {0,0,0,0,1,0,0,0,1,0},
+                        {0,0,1,1,1,1,1,1,1,0},
+                        {0,1,1,0,0,0,1,1,0,0},
+                        {1,1,1,1,1,1,1,1,0,0},
+                        {0,0,1,0,0,0,1,0,0,0},
+                        {0,0,1,0,0,0,1,0,0,0},
+                      
+};
 
 void GooseJumper(OrbitInput *obi, GameState *gs) {
   if (gs->needsReset) {
-    SetMemory(gs, 2, 2);
+    SetMemory(gs, 1, 2);
     
     gs->words[0].x = 0;
     gs->words[0].y = 0;
@@ -18,19 +28,28 @@ void GooseJumper(OrbitInput *obi, GameState *gs) {
     gs->shapes[0].pos.dY = 31;
     gs->shapes[0].width = 150;
     gs->shapes[0].height = 1;
+
+    gs->shapes[1].type = 2;
+    gs->shapes[1].pos.x = 64;
+    gs->shapes[1].pos.dX = 64;
+    gs->shapes[1].pos.y = 16;
+    gs->shapes[1].pos.dY = 16;
+    gs->shapes[1].width = 10;
+    gs->shapes[1].height = 8;
+
+    for (int r =0; r < 8; r++){
+      for (int c =0; c <10;c++){
+        gs->shapes[1].bmp[r][c] = gooseImg[r][c];
+      }
+    }
+    
     
     
     gs->needsReset = false;
   }
 
   if (!started){
-    playerPos.x=48;
-    playerPos.dX=playerPos.x;
-    playerPos.y=25;
-    playerPos.dY=playerPos.y;
-    playerPos.vX=0;
-    playerPos.vY=0;
-    started=1;
+    
   }
 
   if (obi->buttons[0] || obi->buttons[1]){//jump

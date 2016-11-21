@@ -3,10 +3,10 @@ void GUIsetup() {
 }
 
 void Draw(Shape *pic) {
-  for (int i = 0; i < pic->width; i++) {
-    for (int j = 0; j < pic->height; j++) {
+  for (int i = 0; i < pic->height; i++) {
+    for (int j = 0; j < pic->width; j++) {
       if (pic->bmp[i][j]) {
-        OrbitOledMoveTo(pic->pos.x + i, pic->pos.y + j);
+        OrbitOledMoveTo(pic->pos.x + j, pic->pos.y + i);
         OrbitOledDrawPixel();
       }
     }
