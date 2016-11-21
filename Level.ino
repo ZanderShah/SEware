@@ -23,8 +23,8 @@ void UpdatePosition(Position *p) {
   p->dX += (elapsedTime / 1000.0) * p->vX;
   p->dY += (elapsedTime / 1000.0) * p->vY;
 
-  p->x = (int) p->dX;
-  p->y = (int) p->dY;
+  p->x = (int) (p->dX +1);
+  p->y = (int) (p->dY +1);
   
   p->prevTime = millis();
 }
