@@ -12,10 +12,12 @@ void LockPicker(OrbitInput *obi, GameState *gs) {
     gs->words[0].y = 0;
 
     gs->shapes[0].type = 1;
-    gs->shapes[0].x1 = 0;
-    gs->shapes[0].y1 = 15;
-    gs->shapes[0].x2 = 15;
-    gs->shapes[0].y2 = 30;
+    gs->shapes[0].pos.x = 0;
+    gs->shapes[0].pos.dX = 0;
+    gs->shapes[0].pos.y = 15;
+    gs->shapes[0].pos.dY = 15;
+    gs->shapes[0].width = 15;
+    gs->shapes[0].height = 15;
 
     gs->needsReset = false;
   }

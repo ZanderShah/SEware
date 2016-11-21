@@ -26,9 +26,16 @@ typedef struct {
 } Word;
 
 typedef struct {
+  int x, y; //curposition 
+  double dX, dY; //current position as a double (for accuracy)
+  double vX, vY; // velocity in pixels per second. 
+  double prevTime;
+} Position;
+
+typedef struct {
   int type;
   Position pos;
-  int width,height;
+  int width, height;
   char *bmp;
 } Shape;
 
@@ -43,13 +50,6 @@ typedef struct {
   Shape *shapes;
   int numShapes;
 } GameState;
-
-typedef struct {
-  int x, y; //curposition 
-  double dX, dY; //current position as a double (for accuracy)
-  double vX, vY; // velocity in pixels per second. 
-  double prevTime;
-} Position;
 
 OrbitInput obi;
 GameState gs;
