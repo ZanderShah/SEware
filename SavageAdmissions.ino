@@ -1,14 +1,19 @@
-Shape CreateShape() {
+Shape CreateLove() {
   Shape ret;
-  ret.type = 1;
+  ret.type = 2;
   ret.pos.x = -rand() % 100;
   ret.pos.dX = ret.pos.x;
   ret.pos.y = rand() % 26;
   ret.pos.dY = ret.pos.y;
-  ret.width = 3;
-  ret.height = 3;
+  ret.width = 5;
+  ret.height = 4;
   ret.pos.vX = 30;
   ret.pos.vY = 0;
+  for (int i = 0; i < ret.height; i++) {
+    for (int j = 0; j < ret.width; j++) {
+      ret.bmp[i][j] = LOVE[i][j];
+    }
+  }
   ret.pos.prevTime = millis();
   return ret;
 }
@@ -38,14 +43,20 @@ void SavageAdmissions(OrbitInput *obi, GameState *gs) {
     gs->shapes[1].pos.dX = 115;
     gs->shapes[1].pos.y = 10;
     gs->shapes[1].pos.dY = 10;
-    gs->shapes[1].width = 2;
-    gs->shapes[1].height = 8;
+    gs->shapes[1].width = 6;
+    gs->shapes[1].height = 5;
     gs->shapes[1].pos.vX = 0;
     gs->shapes[1].pos.vY = 0;
     gs->shapes[1].pos.prevTime = millis();
+    
+    for (int i = 0; i < gs->shapes[1].height; i++) {
+      for (int j = 0; j < gs->shapes[1].width; j++) {
+        gs->shapes[1].bmp[i][j] = BASKET[i][j];
+      }
+    }
 
     for (int i = 2; i < gs->numShapes; i++) {
-      gs->shapes[i] = CreateShape();
+      gs->shapes[i] = CreateLove();
     }
 
     gs->needsReset = false;
@@ -64,10 +75,10 @@ void SavageAdmissions(OrbitInput *obi, GameState *gs) {
   for (int i = 2; i < gs->numShapes; i++) {
     if (intersect(gs->shapes[1], gs->shapes[i])) {
       gs->score++;
-      gs->shapes[i] = CreateShape();
+      gs->shapes[i] = CreateLove();
     }
     if (gs->shapes[i].pos.x > 130) {
-      gs->shapes[i] = CreateShape();
+      gs->shapes[i] = CreateLove();
     }
   }
 

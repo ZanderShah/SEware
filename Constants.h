@@ -22,4 +22,19 @@ const char *HYPE[] = { "----", "====", "####" };
 
 const char *LEVEL_NAMES[] = { "PARTY MODE", "GOOSE HUNTER", "SAV ADMISSIONS", "LOCK PICKER","MATH PUZZLE", "GOOSE JUMPER" };
 
+const bool BASKET[5][6] = {
+  { 0, 0, 1, 1, 1, 1 },
+  { 0, 1, 0, 0, 1, 1 },
+  { 1, 1, 1, 1, 0, 1 },
+  { 1, 0, 0, 1, 1, 0 },
+  { 1, 1, 1, 1, 0, 0 }
+};
+
+const bool LOVE[4][5] = {
+  { 0, 1, 0, 1, 0 },
+  { 1, 0, 1, 0, 1 }, 
+  { 0, 1, 0, 1, 0 },
+  { 0, 0, 1, 0, 0 }
+};
+
 #endif
