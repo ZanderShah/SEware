@@ -15,6 +15,7 @@ Shape CreateLove() {
     }
   }
   ret.pos.prevTime = millis();
+  ret.visible = true;
   return ret;
 }
 
@@ -37,6 +38,7 @@ void SavageAdmissions(OrbitInput *obi, GameState *gs) {
     gs->shapes[0].pos.dY = 0;
     gs->shapes[0].width = 0;
     gs->shapes[0].height = 32;
+    gs->shapes[0].visible = true;
 
     gs->shapes[1].type = 2;
     gs->shapes[1].pos.x = 115;
@@ -48,10 +50,11 @@ void SavageAdmissions(OrbitInput *obi, GameState *gs) {
     gs->shapes[1].pos.vX = 0;
     gs->shapes[1].pos.vY = 0;
     gs->shapes[1].pos.prevTime = millis();
+    gs->shapes[1].visible = true;
     
     for (int i = 0; i < gs->shapes[1].height; i++) {
       for (int j = 0; j < gs->shapes[1].width; j++) {
-        gs->shapes[1].bmp[i][j] = BASKET[i][j];
+        gs->shapes[1].bmp[j][i] = BASKET[i][j];
       }
     }
 
@@ -88,7 +91,7 @@ void SavageAdmissions(OrbitInput *obi, GameState *gs) {
 
   sprintf(gs->words[0].w, "%d", gs->score);
 
-  if (gs->score == 101) {
+  if (gs->score == 5) {
     gs->state = SELECTION;
   }
   if (gs->state != SAVAGE_ADMISSIONS) {

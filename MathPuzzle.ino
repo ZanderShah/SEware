@@ -19,6 +19,7 @@ void MathPuzzle(OrbitInput *obi, GameState *gs) {
     gs->shapes[0].pos.dY = 15;
     gs->shapes[0].width = 15;
     gs->shapes[0].height = 15;
+    gs->shapes[0].visible = true;
 
     gs->needsReset = false;
     gs->words[1].x = 0;

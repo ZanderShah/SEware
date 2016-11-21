@@ -28,6 +28,7 @@ void GooseJumper(OrbitInput *obi, GameState *gs) {
     gs->shapes[0].pos.dY = 31;
     gs->shapes[0].width = 150;
     gs->shapes[0].height = 1;
+    gs->shapes[0].visible = true;
 
     gs->shapes[1].type = 2;
     gs->shapes[1].pos.x = 64;
@@ -36,6 +37,7 @@ void GooseJumper(OrbitInput *obi, GameState *gs) {
     gs->shapes[1].pos.dY = 16;
     gs->shapes[1].width = 10;
     gs->shapes[1].height = 8;
+    gs->shapes[1].visible = true;
 
     for (int r =0; r < 8; r++){
       for (int c =0; c <10;c++){

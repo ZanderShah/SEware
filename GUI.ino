@@ -29,7 +29,7 @@ void GUIloop(GameState *gs) {
     int height = gs->shapes[i].height;
     int y2 = y1 + height;
     
-    if (x1 <= 132 && x2 >= 0 && y1 <= 32 && y2 >= 0) {
+    if (gs->shapes[i].visible && x1 <= 132 && x2 >= 0 && y1 <= 32 && y2 >= 0) {
       OrbitOledMoveTo(x1, y1);
       switch(gs->shapes[i].type) {
         case 1: 

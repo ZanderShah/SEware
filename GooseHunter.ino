@@ -1,27 +1,66 @@
+int animationTimer;
+
 void GooseHunter(OrbitInput *obi, GameState *gs) {
   if (gs->needsReset) {
-    SetMemory(gs, 1, 1);
+    SetMemory(gs, 0, 3);
+
+    for (int i = 0; i < 3; i++) {
+      gs->shapes[i].type = 2;
+      gs->shapes[i].pos.x = 0;
+      gs->shapes[i].pos.dX = 0;
+      gs->shapes[i].pos.y = 1;
+      gs->shapes[i].pos.dY = 1;
+      gs->shapes[i].width = 29;
+      gs->shapes[i].height = 29;
+      gs->shapes[i].pos.vX = 20;
+      gs->shapes[i].pos.vY = 0;
+      gs->shapes[i].pos.prevTime = millis();
+    }
+    gs->shapes[0].visible = true;
+    gs->shapes[1].visible = false;
+    gs->shapes[2].visible = false;
+   
+    for (int i = 0; i < gs->shapes[0].height; i++) {
+      for (int j = 0; j < gs->shapes[0].width; j++) {
+        gs->shapes[0].bmp[i][j] = NO_FIRE[i][j];
+        gs->shapes[1].bmp[i][j] = MED_FIRE[i][j];
+        gs->shapes[2].bmp[i][j] = FULL_FIRE[i][j];
+      }
+    }
     
-    strcpy(gs->words[0].w, "~ WEW LAD ~");
-    gs->words[0].x = 0;
-    gs->words[0].y = 0;
-
-    gs->shapes[0].type = 1;
-    gs->shapes[0].pos.x = 0;
-    gs->shapes[0].pos.dX = 0;
-    gs->shapes[0].pos.y = 15;
-    gs->shapes[0].pos.dY = 15;
-    gs->shapes[0].width = 15;
-    gs->shapes[0].height = 15;
-
     gs->needsReset = false;
   }
 
-  gs->shapes[0].pos.x++;
+  for (int i = 0; i < gs->numShapes; i++) {
+    UpdatePosition(&(gs->shapes[i].pos));
+  }
 
-  if (gs->shapes[0].pos.x >= 130) {
-    gs->shapes[0].pos.x = 0;
-    gs->shapes[0].pos.dX = 0;
+  if (gs->shapes[0].pos.x >= 100) {
+    for (int i = 0; i < 3; i++) {
+      gs->shapes[i].pos.x = 0;
+      gs->shapes[i].pos.dX = 0;
+    }
+  }
+
+  if (obi->buttons[0] && obi->buttons[0] ^ obi->pastButtons[0] && animationTimer <= 0) {
+    animationTimer = COOLDOWN;
+  }
+  
+  if (animationTimer == 0) {
+    gs->shapes[0].visible = true;
+    gs->shapes[1].visible = false;
+    gs->shapes[2].visible = false;
+  } else {
+    if (abs(animationTimer) <= 75) {
+      gs->shapes[0].visible = false;
+      gs->shapes[1].visible = true;
+      gs->shapes[2].visible = false;
+    } else {
+      gs->shapes[0].visible = false;
+      gs->shapes[1].visible = false;    
+      gs->shapes[2].visible = true;
+    }
+    animationTimer--;
   }
 
   // Checking for party temporarily since party maps to goosehunter

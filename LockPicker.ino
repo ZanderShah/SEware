@@ -21,6 +21,7 @@ void LockPicker(OrbitInput *obi, GameState *gs) {
     gs->shapes[0].pos.dY = 20;
     gs->shapes[0].width = 128;
     gs->shapes[0].height = 1;
+    gs->shapes[0].visible = true;
 
     gs->needsReset = false;
   }

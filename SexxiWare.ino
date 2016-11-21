@@ -36,6 +36,7 @@ typedef struct {
   int type;
   Position pos;
   int width, height;
+  bool visible;
   bool bmp[32][32];
 } Shape;
 
