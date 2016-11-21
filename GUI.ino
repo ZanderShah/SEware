@@ -1,6 +1,5 @@
 void GUIsetup() {
   OrbitOledInit();
-  OrbitOledSetDrawColor(1);
 }
 
 void GUIloop(GameState *gs) {
@@ -13,9 +12,11 @@ void GUIloop(GameState *gs) {
 
   for (int i = 0; i < gs->numShapes; i++) {
     int x1 = gs->shapes[i].pos.x;
-    int x2 = gs->shapes[i].pos.x + gs->shapes[i].width;
+    int width = gs->shapes[i].width;
+    int x2 = x1 + width;
     int y1 = gs->shapes[i].pos.y;
-    int y2 = gs->shapes[i].pos.y + gs->shapes[i].height;
+    int height = gs->shapes[i].height;
+    int y2 = y1 + height;
     
     if (x1 <= 132 && x2 >= 0 && y1 <= 32 && y2 >= 0) {
       OrbitOledMoveTo(x1, y1);

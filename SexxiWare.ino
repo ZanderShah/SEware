@@ -36,7 +36,6 @@ typedef struct {
   int type;
   Position pos;
   int width, height;
-  char *bmp;
 } Shape;
 
 typedef struct {
@@ -80,6 +79,4 @@ void loop() {
   (*level[gs.state])(&obi, &gs);
   
   GUIloop(&gs);
-
-  delay(33.33);
 }
