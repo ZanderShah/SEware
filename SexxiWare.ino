@@ -49,6 +49,8 @@ typedef struct {
 
   Shape *shapes;
   int numShapes;
+
+  int score;
 } GameState;
 
 OrbitInput obi;
