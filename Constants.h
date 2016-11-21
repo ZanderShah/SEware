@@ -22,6 +22,4 @@ const char *HYPE[] = { "----", "====", "####" };
 
 const char *LEVEL_NAMES[] = { "PARTY MODE", "GOOSE HUNTER", "SAV ADMISSIONS", "LOCK PICKER","MATH PUZZLE", "GOOSE JUMPER" };
 
-const int EPS = 3;
-
 #endif

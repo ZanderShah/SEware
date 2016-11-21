@@ -17,9 +17,6 @@ void UpdatePosition(Position *p) {
   if (!p) {
     return;
   }
-  if (!p->prevTime){
-    p->prevTime=millis();
-  }
   
   double elapsedTime = millis() - p->prevTime;
   
