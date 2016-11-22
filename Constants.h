@@ -24,7 +24,7 @@ const uint32_t LEDS[] = { GREEN_LED, PB_5, PD_6, PC_7, PC_6 };
 const int HYPE_THRESHOLD = 1250;
 const char *HYPE[] = { "----", "====", "####" };
 
-const char *LEVEL_NAMES[] = { "PARTY MODE", "GOOSE HUNTER", "COLLECT LOVE", "LOCK PICKER", "MATH PUZZLE", "GOOSE JUMPER" };
+const char *LEVEL_NAMES[] = { "PARTY MODE", "GOOSE HUNTER", "COLLECT LOVE", "LOCK PICKER", "GOOSE JUMPER" };
 
 const int EPS = 35;
 const int COOLDOWN = 125;

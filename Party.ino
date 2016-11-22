@@ -11,16 +11,20 @@ void Party(OrbitInput *obi, GameState *gs) {
       int j = rand() % (TOTAL_LEVELS - 3) + 3;
       int t = order[i];
       order[i] = order[j];
-      order[j] = order[i];
+      order[j] = t;
     }
 
+    room.needsReset=true;
     gs->needsReset = false;
   }
 
   (*level)[order[gs->selected]](obi, &room);
   if (room.needsReset) {
     gs->selected++;
+    Reset(&room);
   }
+
+  
 
   if (gs->selected == TOTAL_LEVELS) {
     Reset(gs);

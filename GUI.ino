@@ -32,6 +32,7 @@ void GUIloop(GameState *gs) {
       && y1 <= SCREEN_HEIGHT && y2 >= 0) {
       switch(gs->shapes[i].type) {
         case 1: 
+          OrbitOledSetDrawColor(1);
           OrbitOledMoveTo(x1, y1);
           OrbitOledDrawRect(x2, y2);
           break;

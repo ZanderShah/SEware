@@ -67,7 +67,7 @@ void GooseJumper(OrbitInput *obi, GameState *gs) {
     strcpy(gs->words[0].w, "GOOSE, JUMP!");
     
     // Ground
-    gs->shapes[0] = { 1, { 0, 31, 0, 31, 0, 0, millis() }, 150, 1, true };
+    gs->shapes[0] = { 1, { 0, 31, 0, 31, 0, 0, millis() }, 150, 3, true };
     // Goose
     gs->shapes[1] = { 2, { 150, 22, 150, 22, -20, 0, millis() }, 10, 8, true };
     
