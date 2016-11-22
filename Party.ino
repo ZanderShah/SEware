@@ -14,17 +14,20 @@ void Party(OrbitInput *obi, GameState *gs) {
       order[j] = t;
     }
 
-    room.needsReset=true;
+    room.needsReset = true;
     gs->needsReset = false;
   }
 
   (*level)[order[gs->selected]](obi, &room);
+  
   if (room.needsReset) {
     gs->selected++;
-    Reset(&room);
   }
 
-  
+  gs->numWords = room.numWords;
+  *(gs->words) = *room.words;
+  gs->numShapes = room.numShapes;
+  *(gs->shapes) = *room.shapes;
 
   if (gs->selected == TOTAL_LEVELS) {
     Reset(gs);
