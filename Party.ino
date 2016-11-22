@@ -25,9 +25,9 @@ void Party(OrbitInput *obi, GameState *gs) {
   }
 
   gs->numWords = room.numWords;
-  *(gs->words) = *room.words;
+  gs->words = room.words;
   gs->numShapes = room.numShapes;
-  *(gs->shapes) = *room.shapes;
+  gs->shapes = room.shapes;
 
   if (gs->selected == TOTAL_LEVELS) {
     Reset(gs);
