@@ -1,10 +1,10 @@
 Shape CreateLove() {
-  Shape ret = { 2, { -rand() % 300, rand() % 26, 0, 0, rand() % 30 + 15, 0, millis() }, 5, 4, true };
+  Shape ret = { 2, { -rand() % 300, rand() % 26, 0, 0, rand() % 30 + 15, 0, millis() }, 23, 21, true };
   ret.pos.dX = ret.pos.x;
   ret.pos.dY = ret.pos.y;
   for (int i = 0; i < ret.height; i++) {
     for (int j = 0; j < ret.width; j++) {
-      ret.bmp[i][j] = LOVE[i][j];
+      ret.bmp[i][j] = BIG_GOOSE[i][j];
     }
   }
   return ret;
@@ -67,9 +67,9 @@ void CollectLove(OrbitInput *obi, GameState *gs) {
     }
   }
 
-  sprintf(gs->words[0].w, "%d", gs->score);
+  sprintf(gs->words[0].w, "%02d/%d", gs->score, MAX_LOVE);
 
-  if (gs->lives <= 0 || gs->score >= 20) {
+  if (gs->lives <= 0 || gs->score >= MAX_LOVE) {
     gs->state = SELECTION;
   }
   if (gs->state != COLLECT_LOVE) {
