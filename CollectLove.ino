@@ -10,10 +10,7 @@ Shape CreateLove() {
   return ret;
 }
 
-bool intersect(Shape i, Shape j) {
-  return abs(i.pos.x + i.width / 2 - j.pos.x - j.width / 2) <= i.width / 2  + j.width / 2
-    && abs(i.pos.y + i.height / 2 - j.pos.y - j.height / 2) <= i.height / 2 + j.height / 2;
-}
+
 
 void CollectLove(OrbitInput *obi, GameState *gs) {
   if (gs->needsReset) {

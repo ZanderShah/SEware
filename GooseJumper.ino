@@ -36,7 +36,8 @@ bool playerImage[8][8]={{0,0,1,1,1,1,0,0},
 };
 
 Shape CreateJumpObject(){
-  Shape ret= { 2, { rand() %200+130, 22, 130, 22, -20, 0, millis() }, 10, 8, true };
+  int tx= rand() %50+130;
+  Shape ret= { 2, { tx, 22, tx, 22, -20, 0, millis() }, 10, 8, true };
   int retWidth,retHeight;
   
   if (rand() %2==1){ //goose!
@@ -122,7 +123,11 @@ void GooseJumper(OrbitInput *obi, GameState *gs) {
   }
 
   //collision detection:
-  
+  for (int i =1; i <=2; i++){
+    if (intersect(gs->shapes[i], gs->shapes[3])){
+      gs->state=MAIN_MENU;
+    }
+  }
   UpdatePosition(&(gs->shapes[3].pos));
   UpdatePosition(&(gs->shapes[2].pos));
   UpdatePosition(&(gs->shapes[1].pos));
