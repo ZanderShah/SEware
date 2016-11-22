@@ -50,7 +50,7 @@ typedef struct {
   Shape *shapes;
   int score;
   int lives; 
-  bool needsReset;
+  bool needsReset, partyReset;
 } GameState;
 
 OrbitInput obi;
@@ -64,8 +64,7 @@ void setup() {
   
   gs.state = MAIN_MENU;
   gs.needsReset = true;
-
-  srand((time_t) millis());
+  gs.partyReset = true;
   
   level[0] = MainMenu;
   level[1] = Selection;
@@ -77,6 +76,9 @@ void setup() {
 }
 
 void loop() {
+  // time(NULL) doesn't work and theres basically no difference when its in the main loop
+  srand((time_t) millis());
+  
   UIloop(&obi);
   
   (*level[gs.state])(&obi, &gs);

@@ -17,6 +17,7 @@ const int SWITCH_COUNT = 2;
 const uint32_t SWITCHES[] = { PA_6, PA_7 };
 const int BUTTON_COUNT = 2;
 const uint32_t BUTTONS[] = { PD_2, PE_0 };
+const int MAX_POTENTIAL = 4390;
 const uint32_t POTENTIOMETER = PE_3;
 const int LED_COUNT = 5;
 const uint32_t LEDS[] = { GREEN_LED, PB_5, PD_6, PC_7, PC_6 };

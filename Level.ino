@@ -15,7 +15,7 @@ void Reset(GameState *gs) {
   for (int i = 0; i < LED_COUNT; i++) {
     digitalWrite(LEDS[i], LOW);
   }
-    
+
   gs->needsReset = true;
 }
 

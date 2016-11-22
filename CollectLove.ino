@@ -34,7 +34,7 @@ void CollectLove(OrbitInput *obi, GameState *gs) {
     gs->needsReset = false;
   }
 
-  gs->shapes[1].pos.x = (int) ((obi->potential / 4390) * SCREEN_WIDTH);
+  gs->shapes[1].pos.x = (int) ((obi->potential / MAX_POTENTIAL) * SCREEN_WIDTH);
   gs->shapes[1].pos.dX = gs->shapes[1].pos.x;
 
   gs->shapes[1].pos.vY = 0;

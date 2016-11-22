@@ -23,7 +23,7 @@ void LockPicker(OrbitInput *obi, GameState *gs) {
     gs->needsReset = false;
   }
 
-  gs->words[1].x = (int) (obi->potential / 4390 * SCREEN_WIDTH);
+  gs->words[1].x = (int) (obi->potential / MAX_POTENTIAL * SCREEN_WIDTH);
   
   if (fabs(obi->potential - solution[gs->score]) < EPS) {
     digitalWrite(LEDS[0], HIGH);

@@ -1,10 +1,7 @@
 int order[TOTAL_LEVELS];
-GameState room;
 
 void Party(OrbitInput *obi, GameState *gs) {
-  if (gs->needsReset) {
-    gs->selected = 0;
-    
+  if (gs->partyReset) {
     for (int i = 3; i < TOTAL_LEVELS; i++)
       order[i] = i;
     for (int i = 3; i < TOTAL_LEVELS; i++) {
@@ -13,23 +10,21 @@ void Party(OrbitInput *obi, GameState *gs) {
       order[i] = order[j];
       order[j] = t;
     }
-
-    room.needsReset = true;
-    gs->needsReset = false;
+    gs->selected = 3;
+    gs->partyReset = false;
   }
-
-  (*level)[order[gs->selected]](obi, &room);
   
-  if (room.needsReset) {
+  gs->state = order[gs->selected];
+  (*level[gs->state])(obi, gs);
+  gs->state = PARTY;
+
+  if (gs->needsReset) {
     gs->selected++;
   }
 
-  gs->numWords = room.numWords;
-  gs->words = room.words;
-  gs->numShapes = room.numShapes;
-  gs->shapes = room.shapes;
-
   if (gs->selected == TOTAL_LEVELS) {
+    gs->state = MAIN_MENU;
+    gs->partyReset = true;
     Reset(gs);
   }
 }
