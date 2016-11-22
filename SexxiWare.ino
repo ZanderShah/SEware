@@ -28,7 +28,9 @@ typedef struct {
   int x, y;
   double dX, dY;
   double vX, vY;
+  
   double prevTime;
+  double aY, aX;
 } Position;
 
 typedef struct {
