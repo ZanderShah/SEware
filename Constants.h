@@ -30,4 +30,6 @@ const char *LEVEL_NAMES[] = { "PARTY MODE", "GOOSE HUNTER", "COLLECT LOVE", "LOC
 const int EPS = 35;
 const int COOLDOWN = 125;
 
+const int MAX_LOVE = 20;
+
 #endif
