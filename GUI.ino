@@ -41,6 +41,8 @@ void GUIloop(GameState *gs) {
           break;
       }
     }
+
+    UpdatePosition(&(gs->shapes[i].pos));
   }
   
   OrbitOledUpdate();

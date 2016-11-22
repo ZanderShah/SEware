@@ -59,13 +59,14 @@ Shape CreateJumpObject(){
   
 }
 
+int levelLength=1000;
 
 void GooseJumper(OrbitInput *obi, GameState *gs) {
   if (gs->needsReset) {
-    SetMemory(gs, 1, 4);
+    SetMemory(gs, 0, 6);
 
-    gs->words[0] = { 0, 0, true };
-    strcpy(gs->words[0].w, "GOOSE, JUMP!");
+//    gs->words[0] = { 0, 0, true };
+//    strcpy(gs->words[0].w, "GOOSE, JUMP!");
     
     // Ground
     gs->shapes[0] = { 1, { 0, 31, 0, 31, 0, 0, millis() }, 150, 3, true };
@@ -93,8 +94,14 @@ void GooseJumper(OrbitInput *obi, GameState *gs) {
         gs->shapes[3].bmp[r][c] = playerImage[r][c];
       }
     }
-    
+
+    //finish bar
+    gs->shapes[4] = { 2, { levelLength, 22, levelLength, 22, -20, 0, millis() }, 100, 20, false };
+
+    //progress bar
+    gs->shapes[5] = { 1, { 0, 0, 0, 0, 0, 0, millis() }, 0, 2, true };
     gs->needsReset = false;
+    
   }
 
   if (!started){
@@ -117,7 +124,6 @@ void GooseJumper(OrbitInput *obi, GameState *gs) {
   //update obstacles
   for (int i =1; i <=2; i++){
     if (gs->shapes[i].pos.x <-10){
-      free(&(gs->shapes[i]));
       gs->shapes[i] = CreateJumpObject();
     }
   }
@@ -128,9 +134,10 @@ void GooseJumper(OrbitInput *obi, GameState *gs) {
       gs->state=MAIN_MENU;
     }
   }
-  UpdatePosition(&(gs->shapes[3].pos));
-  UpdatePosition(&(gs->shapes[2].pos));
-  UpdatePosition(&(gs->shapes[1].pos));
+
+  //update progress bar:
+  gs->shapes[5].width = (int) ((levelLength-gs->shapes[4].pos.dX) /levelLength *128.0);
+  
   if (gs->state != GOOSE_JUMPER) {
     Reset(gs);
   }
