@@ -10,6 +10,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include "Constants.h"
+#include "Pictures.h"
 
 typedef struct {
   bool switches[SWITCH_COUNT];
@@ -69,12 +70,11 @@ void setup() {
   
   level[0] = MainMenu;
   level[1] = Selection;
-  level[2] = GooseHunter;
+  level[2] = Party;
   level[3] = GooseHunter;
-  level[4] = SavageAdmissions;
+  level[4] = CollectLove;
   level[5] = LockPicker;
-  level[6] = LockPicker;
-  level[7] = GooseJumper;
+  level[6] = GooseJumper;
 }
 
 void loop() {

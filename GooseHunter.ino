@@ -2,19 +2,24 @@ int animationTimer;
 
 void GooseHunter(OrbitInput *obi, GameState *gs) {
   if (gs->needsReset) {
-    SetMemory(gs, 0, 3);
+    SetMemory(gs, 0, 4);
 
-    for (int i = 0; i < 3; i++) {
-      gs->shapes[i] = { 2, { 0, 1, 0, 1, 20, 0, millis() }, 29, 29, true };
+    gs->shapes[0] = { 2, { 0, 1, 0, 1, 20, 0, millis() }, 29, 29, true };
+    for (int i = 1; i < 4; i++) {
+      gs->shapes[i] = { 2, { 11, 12, 11, 12, 20, 0, millis() }, 7, 7, false };
     }
-    gs->shapes[1].visible = false;
-    gs->shapes[2].visible = false;
    
     for (int i = 0; i < gs->shapes[0].height; i++) {
       for (int j = 0; j < gs->shapes[0].width; j++) {
-        gs->shapes[0].bmp[i][j] = NO_FIRE[i][j];
-        gs->shapes[1].bmp[i][j] = MED_FIRE[i][j];
-        gs->shapes[2].bmp[i][j] = FULL_FIRE[i][j];
+        gs->shapes[0].bmp[i][j] = CROSSHAIR[i][j];
+      }
+    }
+    
+    for (int i = 1; i < 4; i++) {
+      for (int j = 0; j < gs->shapes[i].height; j++) {
+        for (int k = 0; k < gs->shapes[i].width; k++) {
+          gs->shapes[i].bmp[j][k] = FIRE_ANIMATION[i - 1][j][k];
+        }
       }
     }
     
@@ -25,31 +30,27 @@ void GooseHunter(OrbitInput *obi, GameState *gs) {
     UpdatePosition(&(gs->shapes[i].pos));
   }
 
-  if (gs->shapes[0].pos.x + gs->shapes[0].width >= SCREEN_WIDTH) {
-    for (int i = 0; i < 3; i++) {
-      gs->shapes[i].pos.vX *= -1;
-    }
+  if (gs->shapes[0].pos.x < 0 || gs->shapes[0].pos.x + gs->shapes[0].width > SCREEN_WIDTH) {
+    gs->shapes[0].pos.vX *= -1;
+  }
+  for (int i = 1; i < 4; i++) {
+    gs->shapes[i].pos.x = gs->shapes[0].pos.x + 11;
+    gs->shapes[i].pos.dX = gs->shapes[i].pos.x;
   }
 
   if (obi->buttons[0] && !obi->pastButtons[0] && animationTimer <= 0) {
     animationTimer = COOLDOWN;
   }
   
-  if (animationTimer == 0) {
-    gs->shapes[0].visible = true;
-    gs->shapes[1].visible = false;
-    gs->shapes[2].visible = false;
-  } else {
-    if (abs(animationTimer) <= 75) {
-      gs->shapes[0].visible = false;
-      gs->shapes[1].visible = true;
-      gs->shapes[2].visible = false;
-    } else {
-      gs->shapes[0].visible = false;
-      gs->shapes[1].visible = false;    
-      gs->shapes[2].visible = true;
+  if (animationTimer != 0) {
+    for (int i = 1; i < 4; i++) {
+      gs->shapes[i].visible = COOLDOWN * i / 3 <= animationTimer;
     }
     animationTimer--;
+  } else {
+    for (int i = 1; i < 4; i++) {
+      gs->shapes[i].visible = false;
+    }
   }
 
   if (gs->state != GOOSE_HUNTER) {
