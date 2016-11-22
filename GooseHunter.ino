@@ -5,18 +5,8 @@ void GooseHunter(OrbitInput *obi, GameState *gs) {
     SetMemory(gs, 0, 3);
 
     for (int i = 0; i < 3; i++) {
-      gs->shapes[i].type = 2;
-      gs->shapes[i].pos.x = 0;
-      gs->shapes[i].pos.dX = 0;
-      gs->shapes[i].pos.y = 1;
-      gs->shapes[i].pos.dY = 1;
-      gs->shapes[i].width = 29;
-      gs->shapes[i].height = 29;
-      gs->shapes[i].pos.vX = 20;
-      gs->shapes[i].pos.vY = 0;
-      gs->shapes[i].pos.prevTime = millis();
+      gs->shapes[i] = { 2, { 0, 1, 0, 1, 20, 0, millis() }, 29, 29, true };
     }
-    gs->shapes[0].visible = true;
     gs->shapes[1].visible = false;
     gs->shapes[2].visible = false;
    
@@ -35,14 +25,13 @@ void GooseHunter(OrbitInput *obi, GameState *gs) {
     UpdatePosition(&(gs->shapes[i].pos));
   }
 
-  if (gs->shapes[0].pos.x >= 100) {
+  if (gs->shapes[0].pos.x + gs->shapes[0].width >= SCREEN_WIDTH) {
     for (int i = 0; i < 3; i++) {
-      gs->shapes[i].pos.x = 0;
-      gs->shapes[i].pos.dX = 0;
+      gs->shapes[i].pos.vX *= -1;
     }
   }
 
-  if (obi->buttons[0] && obi->buttons[0] ^ obi->pastButtons[0] && animationTimer <= 0) {
+  if (obi->buttons[0] && !obi->pastButtons[0] && animationTimer <= 0) {
     animationTimer = COOLDOWN;
   }
   
@@ -63,8 +52,7 @@ void GooseHunter(OrbitInput *obi, GameState *gs) {
     animationTimer--;
   }
 
-  // Checking for party temporarily since party maps to goosehunter
-  if (gs->state != GOOSE_HUNTER && gs->state != PARTY) {
+  if (gs->state != GOOSE_HUNTER) {
     Reset(gs);
   }
 }

@@ -5,6 +5,9 @@ void UIsetup() {
   for (int i = 0; i < BUTTON_COUNT; i++) {
     pinMode(BUTTONS[i], INPUT);
   }
+  for (int i = 0; i < LED_COUNT; i++) {
+    pinMode(LEDS[i], OUTPUT);
+  }
 }
 
 void UIloop(OrbitInput *obi) {

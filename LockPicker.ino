@@ -1,67 +1,54 @@
-double epsilon = 35;
-double solution[] = { 0,0,0 };
-int initialized = 0;
-int curSolution = 0;
+double solution[4] = { 0 };
 
 void LockPicker(OrbitInput *obi, GameState *gs) {
   if (gs->needsReset) {
     SetMemory(gs, 2, 1);
-    
-    gs->words[0].x = 0;
-    gs->words[0].y = 0;
-    gs->words[1].x = 0;
-    gs->words[1].y = 20;
+    gs->score = 0;
+
+    gs->words[0] = { 0, 0, true };
+    strcpy(gs->words[0].w, "PICK THE LOCKS ~");
+    gs->words[1] = { 0, 20, true };
     strcpy(gs->words[1].w, "|");
 
-    
-    gs->shapes[0].type = 1;
-    gs->shapes[0].pos.x = 0;
-    gs->shapes[0].pos.dX = 0;
-    gs->shapes[0].pos.y = 20;
-    gs->shapes[0].pos.dY = 20;
-    gs->shapes[0].width = 128;
-    gs->shapes[0].height = 1;
-    gs->shapes[0].visible = true;
+    gs->shapes[0] = { 1, { 0, 20, 0, 20, 0, 0, millis() }, SCREEN_WIDTH, 1, true };
 
-    gs->needsReset = false;
-  }
-  
-  if (!initialized){//set the solution!
-    initialized = 1;
-    srand((time_t) millis());
-    for (int i = 0; i < 3 ;i++){
+
+    for (int i = 0; i < 4; i++) {
       solution[i] = (rand() % (4000 + 1 - 100)) + 100;
-      while (i > 0 && fabs(solution[i]-solution[i - 1]) < 500){
+      while (i > 0 && fabs(solution[i] - solution[i - 1]) < 500) {
         solution[i] = (rand() % (4000 + 1 - 100)) + 100;
       }
     }
 
-    strcpy(gs->words[0].w, "Pick a lock: ");
-    gs->words[0].x = 0;
-    gs->words[0].y = 0;
-
+    gs->needsReset = false;
   }
-  
 
-  double curVal = (double) obi->potential;
-  gs->words[1].x = (int) ((curVal/4390.0) * 128);
-  if (fabs(curVal - solution[curSolution]) <epsilon ){
-    digitalWrite(LED, HIGH);
+  gs->words[1].x = (int) (obi->potential / 4390 * SCREEN_WIDTH);
+  
+  if (fabs(obi->potential - solution[gs->score]) < EPS) {
+    digitalWrite(LEDS[0], HIGH);
     strcpy(gs->words[1].w, "O");
-    if (obi->buttons[0] || obi->buttons[1]){
-      curSolution ++;
-      strcat(gs->words[0].w, "x");
+    if (obi->buttons[0] || obi->buttons[1]) {
+      gs->score++;
+      strcat(gs->words[0].w, "X");
     }
-  }else{
-    digitalWrite(LED, LOW);
+  } else {
+    digitalWrite(LEDS[0], LOW);
     strcpy(gs->words[1].w, "|");
   }
 
-  if (curSolution >=3){//win
-    
+  for (int i = 1; i < LED_COUNT; i++) {
+    if (i <= gs->score) {
+      digitalWrite(LEDS[i], HIGH);
+    }
   }
 
-  
+  if (gs->score >= 4) {
+    gs->state = SELECTION;
+  }
+  if (gs->state != LOCK_PICKER) {
+    Reset(gs);
+  }
 }
 
 

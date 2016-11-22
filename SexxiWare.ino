@@ -10,7 +10,6 @@
 #include <stdlib.h>
 #include <time.h>
 #include "Constants.h"
-#define LED GREEN_LED
 
 typedef struct {
   bool switches[SWITCH_COUNT];
@@ -20,38 +19,36 @@ typedef struct {
 } OrbitInput;
 
 typedef struct {
-  int x;
-  int y;
+  int x, y;
+  bool visible;
   char w[20];
 } Word;
 
 typedef struct {
-  int x, y; //curposition 
-  double dX, dY; //current position as a double (for accuracy)
-  double vX, vY; // velocity in pixels per second. 
+  int x, y;
+  double dX, dY;
+  double vX, vY;
   double prevTime;
 } Position;
 
 typedef struct {
   int type;
   Position pos;
-  int width, height;
-  bool visible;
+  int width, height;  
+  bool visible; 
   bool bmp[32][32];
 } Shape;
 
 typedef struct {
   int state;
-  bool needsReset;
   int selected;
-
-  Word *words;
   int numWords;
-
-  Shape *shapes;
+  Word *words;
   int numShapes;
-
+  Shape *shapes;
   int score;
+  int lives; 
+  bool needsReset;
 } GameState;
 
 OrbitInput obi;
@@ -60,12 +57,13 @@ GameState gs;
 void (*level[TOTAL_LEVELS]) (OrbitInput *obi, GameState *gs);
 
 void setup() {
-  pinMode(LED, OUTPUT); 
   UIsetup();
   GUIsetup();
   
   gs.state = MAIN_MENU;
   gs.needsReset = true;
+
+  srand((time_t) millis());
   
   level[0] = MainMenu;
   level[1] = Selection;
@@ -73,7 +71,7 @@ void setup() {
   level[3] = GooseHunter;
   level[4] = SavageAdmissions;
   level[5] = LockPicker;
-  level[6] = MathPuzzle;
+  level[6] = LockPicker;
   level[7] = GooseJumper;
 }
 

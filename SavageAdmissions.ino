@@ -1,63 +1,35 @@
 Shape CreateLove() {
-  Shape ret;
-  ret.type = 2;
-  ret.pos.x = -rand() % 100;
+  Shape ret = { 2, { -rand() % 100, rand() % 26, 0, 0, rand() % 30 + 25, 0, millis() }, 5, 4, true };
   ret.pos.dX = ret.pos.x;
-  ret.pos.y = rand() % 26;
   ret.pos.dY = ret.pos.y;
-  ret.width = 5;
-  ret.height = 4;
-  ret.pos.vX = 30;
-  ret.pos.vY = 0;
   for (int i = 0; i < ret.height; i++) {
     for (int j = 0; j < ret.width; j++) {
       ret.bmp[i][j] = LOVE[i][j];
     }
   }
-  ret.pos.prevTime = millis();
-  ret.visible = true;
   return ret;
 }
 
 bool intersect(Shape i, Shape j) {
-  return abs(i.pos.x + i.width / 2 - j.pos.x - j.width / 2) <= i.width && abs(i.pos.y + i.height / 2 - j.pos.y - j.height / 2) <= i.height / 2;
+  return abs(i.pos.x + i.width / 2 - j.pos.x - j.width / 2) <= i.width / 2 
+    && abs(i.pos.y + i.height / 2 - j.pos.y - j.height / 2) <= i.height / 2;
 }
 
 void SavageAdmissions(OrbitInput *obi, GameState *gs) {
   if (gs->needsReset) {
     SetMemory(gs, 1, 10);
     gs->score = 0;
+    gs->lives = 4;
 
-    gs->words[0].x = 0;
-    gs->words[0].y = 0;
-   
-    gs->shapes[0].type = 1;
-    gs->shapes[0].pos.x = 120;
-    gs->shapes[0].pos.dX = 120;
-    gs->shapes[0].pos.y = 0;
-    gs->shapes[0].pos.dY = 0;
-    gs->shapes[0].width = 0;
-    gs->shapes[0].height = 32;
-    gs->shapes[0].visible = true;
+    gs->words[0] = { 0, 0 };
 
-    gs->shapes[1].type = 2;
-    gs->shapes[1].pos.x = 115;
-    gs->shapes[1].pos.dX = 115;
-    gs->shapes[1].pos.y = 10;
-    gs->shapes[1].pos.dY = 10;
-    gs->shapes[1].width = 6;
-    gs->shapes[1].height = 5;
-    gs->shapes[1].pos.vX = 0;
-    gs->shapes[1].pos.vY = 0;
-    gs->shapes[1].pos.prevTime = millis();
-    gs->shapes[1].visible = true;
-    
+    gs->shapes[0] = { 1, { 120, 0, 120, 0, 0, 0, millis() }, 0, 32, true };
+    gs->shapes[1] = { 2, { 115, 10, 115, 10, 0, 0, millis() }, 6, 5, true };
     for (int i = 0; i < gs->shapes[1].height; i++) {
       for (int j = 0; j < gs->shapes[1].width; j++) {
         gs->shapes[1].bmp[j][i] = BASKET[i][j];
       }
     }
-
     for (int i = 2; i < gs->numShapes; i++) {
       gs->shapes[i] = CreateLove();
     }
@@ -65,33 +37,42 @@ void SavageAdmissions(OrbitInput *obi, GameState *gs) {
     gs->needsReset = false;
   }
 
-  if (obi->buttons[0] ^ obi->buttons[1] == 0) {
-    gs->shapes[1].pos.vY = 0;
-  } else if (obi->buttons[0] && gs->shapes[1].pos.y < 25) {
+  gs->shapes[1].pos.x = (int) ((obi->potential / 4390) * SCREEN_WIDTH);
+  gs->shapes[1].pos.dX = gs->shapes[1].pos.x;
+
+  gs->shapes[1].pos.vY = 0;
+  if (obi->buttons[0] && gs->shapes[1].pos.y + gs->shapes[1].height < 32) {
     gs->shapes[1].pos.vY = 30;
   } else if (obi->buttons[1] && gs->shapes[1].pos.y > 0) {
     gs->shapes[1].pos.vY = -30;
-  } else {
-    gs->shapes[1].pos.vY = 0;
   }
 
   for (int i = 2; i < gs->numShapes; i++) {
     if (intersect(gs->shapes[1], gs->shapes[i])) {
-      gs->score++;
+      gs->lives--;
       gs->shapes[i] = CreateLove();
     }
-    if (gs->shapes[i].pos.x > 130) {
+    if (gs->shapes[i].pos.x + gs->shapes[i].width > SCREEN_WIDTH) {
+      gs->score++;
       gs->shapes[i] = CreateLove();
     }
   }
 
-  for (int i = 1; i < gs->numShapes; i++) {
+  for (int i = 0; i < gs->numShapes; i++) {
     UpdatePosition(&(gs->shapes[i].pos));
+  }
+
+  for (int i = 1; i < LED_COUNT; i++) {
+    if (i <= gs->lives) {
+      digitalWrite(LEDS[i], HIGH);
+    } else {
+      digitalWrite(LEDS[i], LOW);
+    }
   }
 
   sprintf(gs->words[0].w, "%d", gs->score);
 
-  if (gs->score == 5) {
+  if (gs->lives <= 0 || gs->score >= 20) {
     gs->state = SELECTION;
   }
   if (gs->state != SAVAGE_ADMISSIONS) {

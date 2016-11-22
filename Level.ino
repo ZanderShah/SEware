@@ -8,8 +8,14 @@ void SetMemory(GameState *gs, int words, int shapes) {
 void Reset(GameState *gs) {
   free(gs->words);
   gs->words = NULL;
+  
   free(gs->shapes);
   gs->shapes = NULL;
+
+  for (int i = 0; i < LED_COUNT; i++) {
+    digitalWrite(LEDS[i], LOW);
+  }
+    
   gs->needsReset = true;
 }
 
