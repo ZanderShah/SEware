@@ -28,7 +28,7 @@ void LockPicker(OrbitInput *obi, GameState *gs) {
   if (fabs(obi->potential - solution[gs->score]) < EPS) {
     digitalWrite(LEDS[0], HIGH);
     strcpy(gs->words[1].w, "O");
-    if (obi->buttons[0] || obi->buttons[1]) {
+    if ((obi->buttons[0] && !obi->pastButtons[0]) || (obi->buttons[1] && !obi->pastButtons[1])) {
       gs->score++;
       strcat(gs->words[0].w, "X");
     }

@@ -31,6 +31,7 @@ typedef struct {
   double vX, vY;
   double prevTime;
   double aY, aX;
+  bool frozen;
 } Position;
 
 typedef struct {

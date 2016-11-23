@@ -26,14 +26,17 @@ void UpdatePosition(Position *p) {
   
   double elapsedTime = millis() - p->prevTime;
   double temp = (elapsedTime / 1000.0);
-  p->dX += temp * p->vX;
-  p->dY += temp * p->vY;
 
-  p->vX += temp * p->aX;
-  p->vY += temp * p->aY;
+  if (!p->frozen) {
+    p->dX += temp * p->vX;
+    p->dY += temp * p->vY;
+
+    p->vX += temp * p->aX;
+    p->vY += temp * p->aY;
   
-  p->x = (int) (p->dX +1);
-  p->y = (int) (p->dY +1);
+    p->x = (int) (p->dX + 1);
+    p->y = (int) (p->dY + 1);
+  }
   
   p->prevTime = millis();
 }
