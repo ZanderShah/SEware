@@ -2,7 +2,7 @@ int animationTimer;
 
 void GooseHunter(OrbitInput *obi, GameState *gs) {
   if (gs->needsReset) {
-    SetMemory(gs, 0, 4);
+    SetMemory(gs, 0, 5);
 
     gs->shapes[0] = { 2, { 0, 1, 0, 1, 20, 0, millis() }, 29, 29, true };
     for (int i = 1; i < 4; i++) {
@@ -20,6 +20,13 @@ void GooseHunter(OrbitInput *obi, GameState *gs) {
         for (int k = 0; k < gs->shapes[i].width; k++) {
           gs->shapes[i].bmp[j][k] = FIRE_ANIMATION[i - 1][j][k];
         }
+      }
+    }
+
+    gs->shapes[4] = { 2, { 0, 5, 0, 5, 0, 0, millis() }, 21, 23, true };
+    for (int i = 0; i < gs->shapes[4].height; i++) {
+      for (int j = 0; j < gs->shapes[4].width; j++) {
+        gs->shapes[4].bmp[i][j] = BIG_GOOSE[i][j];
       }
     }
     

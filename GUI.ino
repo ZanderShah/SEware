@@ -1,3 +1,5 @@
+bool master[SCREEN_HEIGHT + 1][SCREEN_WIDTH + 1];
+
 void GUIsetup() {
   OrbitOledInit();
 }
@@ -5,9 +7,9 @@ void GUIsetup() {
 void Draw(Shape *pic) {
   for (int i = 0; i < pic->height; i++) {
     for (int j = 0; j < pic->width; j++) {
-        OrbitOledMoveTo(pic->pos.x + j, pic->pos.y + i);
-        OrbitOledSetDrawColor(pic->bmp[i][j]);
-        OrbitOledDrawPixel();
+      if (pic->pos.y + i >= 0 && pic->pos.y + i <= SCREEN_HEIGHT
+        && pic->pos.x + j >= 0 && pic->pos.x + j <= SCREEN_WIDTH)
+        master[pic->pos.y + i][pic->pos.x + j] |= pic->bmp[i][j];
     }
   }
 }
@@ -15,6 +17,12 @@ void Draw(Shape *pic) {
 void GUIloop(GameState *gs) {
   OrbitOledClearBuffer();
 
+  for (int i = 0; i < SCREEN_HEIGHT; i++) {
+    for (int j = 0; j < SCREEN_WIDTH; j++) {
+      master[i][j] = 0;
+    }
+  }
+  
   for (int i = 0; i < gs->numWords; i++) {
     if (gs->words[i].visible) {
       OrbitOledMoveTo(gs->words[i].x, gs->words[i].y);
@@ -28,8 +36,7 @@ void GUIloop(GameState *gs) {
     int y1 = gs->shapes[i].pos.y;
     int y2 = y1 + gs->shapes[i].height;
     
-    if (gs->shapes[i].visible && x1 <= SCREEN_WIDTH && x2 >= 0 
-      && y1 <= SCREEN_HEIGHT && y2 >= 0) {
+    if (gs->shapes[i].visible) {
       switch(gs->shapes[i].type) {
         case 1: 
           OrbitOledSetDrawColor(1);
@@ -44,7 +51,17 @@ void GUIloop(GameState *gs) {
 
     UpdatePosition(&(gs->shapes[i].pos));
   }
+
+  for (int i = 0; i < SCREEN_HEIGHT; i++) {
+    for (int j = 0; j < SCREEN_WIDTH; j++) {
+      if (master[i][j]) {
+        OrbitOledMoveTo(j, i);
+        OrbitOledDrawPixel();
+      }
+    }
+  }
   
   OrbitOledUpdate();
 }
+
 

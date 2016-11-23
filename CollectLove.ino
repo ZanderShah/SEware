@@ -1,10 +1,11 @@
 Shape CreateLove() {
-  Shape ret = { 2, { -rand() % 300, rand() % 26, 0, 0, rand() % 30 + 15, 0, millis() }, 21, 23, true };
+
+  Shape ret = { 2, { -rand() % 300, rand() % 26, 0, 0, rand() % 30 + 15, 0, millis() }, 5, 4, true };
   ret.pos.dX = ret.pos.x;
   ret.pos.dY = ret.pos.y;
   for (int i = 0; i < ret.height; i++) {
     for (int j = 0; j < ret.width; j++) {
-      ret.bmp[i][j] = BIG_GOOSE[i][j];
+      ret.bmp[i][j] = LOVE[i][j];
     }
   }
   return ret;
