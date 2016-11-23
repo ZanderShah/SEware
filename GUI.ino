@@ -48,6 +48,8 @@ void GUIloop(GameState *gs) {
           break;
       }
     }
+
+    UpdatePosition(&(gs->shapes[i].pos));
   }
 
   for (int i = 0; i < SCREEN_HEIGHT; i++) {

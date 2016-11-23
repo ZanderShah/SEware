@@ -1,4 +1,5 @@
 Shape CreateLove() {
+
   Shape ret = { 2, { -rand() % 300, rand() % 26, 0, 0, rand() % 30 + 15, 0, millis() }, 5, 4, true };
   ret.pos.dX = ret.pos.x;
   ret.pos.dY = ret.pos.y;
