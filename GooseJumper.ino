@@ -137,6 +137,12 @@ void GooseJumper(OrbitInput *obi, GameState *gs) {
 
   //update progress bar:
   gs->shapes[5].width = (int) ((levelLength-gs->shapes[4].pos.dX) /levelLength *128.0);
+
+  //check win
+  if (gs->shapes[5].width >=128){
+    gs->state=MAIN_MENU;
+  }
+
   
   if (gs->state != GOOSE_JUMPER) {
     Reset(gs);

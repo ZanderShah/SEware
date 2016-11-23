@@ -1,5 +1,5 @@
 Shape CreateLove() {
-  Shape ret = { 2, { -rand() % 300, rand() % 26, 0, 0, rand() % 30 + 15, 0, millis() }, 23, 21, true };
+  Shape ret = { 2, { -rand() % 300, rand() % 26, 0, 0, rand() % 30 + 15, 0, millis() }, 21, 23, true };
   ret.pos.dX = ret.pos.x;
   ret.pos.dY = ret.pos.y;
   for (int i = 0; i < ret.height; i++) {
