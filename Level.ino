@@ -43,9 +43,15 @@ bool intersect(Shape i, Shape j) {
     && abs(i.pos.y + i.height / 2 - j.pos.y - j.height / 2) <= i.height / 2;
 }
 
+int prevMillis;
 
+int GetElapsedTime(){
+  return millis()-prevMillis;
+}
 
-
+int UpdateElapsedTime(){
+  prevMillis = millis();
+}
 
 
 

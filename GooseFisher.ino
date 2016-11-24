@@ -1,7 +1,7 @@
 
 int currentWater =1;
-int prevMillis = millis();
-int timeElapsed =0;
+
+int timeElapsed=0;
 int timeToFish=0;
 int fishCatchInterval =1000; //how long player has before fish disappears
 bool win = false;
@@ -42,7 +42,7 @@ void GooseFisher(OrbitInput *obi, GameState *gs) {
       for (int c = 0; c <8; c++) {
         gs->shapes[3].bmp[r][c] = FISH_BITE[r][c];
       }
-    }
+   }
 
     //fish
     gs->shapes[4] = { 2, { 58, 12, 58, 12, 0, 0, millis(),0,0 }, 12, 8, false };
@@ -53,10 +53,13 @@ void GooseFisher(OrbitInput *obi, GameState *gs) {
     }
     timeToFish = rand()%6000 + 3000;
     fishCatchInterval =1000;
+    timeElapsed=0;
     gs->needsReset=false;
-    prevMillis=millis();
+    UpdateElapsedTime();
+    win=false;
   }
-  timeElapsed += millis()-prevMillis;
+  
+  timeElapsed += GetElapsedTime();
   if (timeElapsed >=500){
     timeElapsed=0;
     if (currentWater==1){
@@ -79,13 +82,11 @@ void GooseFisher(OrbitInput *obi, GameState *gs) {
 
   if (!win) {
     if (timeToFish >=0){
-      timeToFish -= (millis()-prevMillis);
+      timeToFish -= GetElapsedTime();
 
-      if (ShakeIsShaking() ||obi->buttons[0]){ //lose! 
-        gs->state=MAIN_MENU;
-      }
+      
     }else{
-      fishCatchInterval -= (millis()-prevMillis);
+      fishCatchInterval -= GetElapsedTime();
       gs->shapes[3].visible=true;
     }
   
@@ -108,7 +109,7 @@ void GooseFisher(OrbitInput *obi, GameState *gs) {
   }
 
 
-  prevMillis=millis();
+  UpdateElapsedTime();
 
   
   if (gs->state != GOOSE_FISHER) {
