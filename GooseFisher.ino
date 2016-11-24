@@ -80,6 +80,10 @@ void GooseFisher(OrbitInput *obi, GameState *gs) {
   if (!win) {
     if (timeToFish >=0){
       timeToFish -= (millis()-prevMillis);
+
+      if (ShakeIsShaking() ||obi->buttons[0]){ //lose! 
+        gs->state=MAIN_MENU;
+      }
     }else{
       fishCatchInterval -= (millis()-prevMillis);
       gs->shapes[3].visible=true;
