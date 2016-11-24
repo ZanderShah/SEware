@@ -48,7 +48,7 @@ void GooseJumper(OrbitInput *obi, GameState *gs) {
     gs->shapes[2] = { 2, { 225, 22, 225, 22, -20, 0, millis() }, 8, 8, true };
     for (int r = 0; r < 8; r++) {
       for (int c = 0; c <8; c++) {
-        gs->shapes[2].bmp[r][c] = GOOSE_POOPmg[r][c];
+        gs->shapes[2].bmp[r][c] = GOOSE_POOP[r][c];
       }
     }
   
