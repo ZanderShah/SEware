@@ -1,7 +1,8 @@
 double solution[4] = { 0 };
 
-int timeLeft = 10000;
-int maxTime = 10000;
+int timeLeft = 30000;
+int maxTime = 30000;
+
 void LockPicker(OrbitInput *obi, GameState *gs) {
   if (gs->needsReset) {
     SetMemory(gs, 2, 2);
@@ -24,10 +25,11 @@ void LockPicker(OrbitInput *obi, GameState *gs) {
 
     //time remaining bar
     gs->shapes[1] = { 1, { 0, 10, 0, 10, 0, 0, millis() }, SCREEN_WIDTH, 2, true };
-    
-    timeLeft=10000;
+
+    maxTime = 30000 - 5000 * gs->streak;
+    timeLeft = 30000 - 5000 * gs->streak;
     gs->needsReset = false;
-    UpdateElapsedTime();
+    UpdateGlobalElapsedTime();
   }
 
   gs->words[1].x = (int) (obi->potential / MAX_POTENTIAL * SCREEN_WIDTH);
@@ -50,18 +52,16 @@ void LockPicker(OrbitInput *obi, GameState *gs) {
     }
   }
 
-  gs->shapes[1].width = (((double)timeLeft)/maxTime) * SCREEN_WIDTH;
+  gs->shapes[1].width = ((double) timeLeft / maxTime) * SCREEN_WIDTH;
 
-  timeLeft -= GetElapsedTime();
-  UpdateElapsedTime();
+  timeLeft -= GetGlobalElapsedTime();
+  UpdateGlobalElapsedTime();
 
-  if(timeLeft <0){//lose
-    gs->state=SELECTION;
+  if (timeLeft < 0 || gs->score >= 4) {
+    gs->state = ENDING;
+    gs->win = gs->score >= 4;
   }
 
-  if (gs->score >= 4) {
-    gs->state = SELECTION;
-  }
   if (gs->state != LOCK_PICKER) {
     Reset(gs);
   }

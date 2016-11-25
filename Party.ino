@@ -19,11 +19,23 @@ void Party(OrbitInput *obi, GameState *gs) {
   gs->state = PARTY;
 
   if (gs->needsReset) {
-    gs->selected++;
+    if (order[gs->selected] == ENDING) {
+      if (gs->win) {
+        gs->selected++;
+      } else {
+        gs->state = MAIN_MENU;
+      }
+    } else {
+      order[gs->selected] = ENDING;
+    }
   }
 
   if (gs->selected == TOTAL_LEVELS) {
-    gs->state = MAIN_MENU;
+    gs->streak++;
+    gs->partyReset = true;
+    Reset(gs);
+  }
+  if (gs->state != PARTY) {
     gs->partyReset = true;
     Reset(gs);
   }

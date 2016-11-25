@@ -13,6 +13,7 @@ const int COLLECT_LOVE = 4;
 const int LOCK_PICKER = 5;
 const int GOOSE_JUMPER = 6;
 const int GOOSE_FISHER = 7;
+const int ENDING = 8;
 
 const int SWITCH_COUNT = 2;
 const uint32_t SWITCHES[] = { PA_6, PA_7 };
@@ -26,7 +27,7 @@ const uint32_t LEDS[] = { GREEN_LED, PB_5, PD_6, PC_7, PC_6 };
 const int HYPE_THRESHOLD = 1250;
 const char *HYPE[] = { "----", "====", "####" };
 
-const char *LEVEL_NAMES[] = { "PARTY MODE", "GOOSE HUNTER", "COLLECT LOVE", "LOCK PICKER", "GOOSE JUMPER","GOOSE FISHER" };
+const char *LEVEL_NAMES[] = { "PARTY MODE", "GOOSE HUNTER", "COLLECT LOVE", "LOCK PICKER", "GOOSE JUMPER", "GOOSE FISHER" };
 
 const int EPS = 35;
 const int COOLDOWN = 125;

@@ -1,6 +1,5 @@
-Shape CreateLove() {
-
-  Shape ret = { 2, { -rand() % 300, rand() % 26, 0, 0, rand() % 30 + 15, 0, millis() }, 5, 4, true };
+Shape CreateLove(int difficulty) {
+  Shape ret = { 2, { -rand() % 300, rand() % 26, 0, 0, rand() % 30 + 15 + 5 * difficulty, 0, millis() }, 5, 4, true };
   ret.pos.dX = ret.pos.x;
   ret.pos.dY = ret.pos.y;
   for (int i = 0; i < ret.height; i++) {
@@ -10,8 +9,6 @@ Shape CreateLove() {
   }
   return ret;
 }
-
-
 
 void CollectLove(OrbitInput *obi, GameState *gs) {
   if (gs->needsReset) {
@@ -29,7 +26,7 @@ void CollectLove(OrbitInput *obi, GameState *gs) {
       }
     }
     for (int i = 2; i < gs->numShapes; i++) {
-      gs->shapes[i] = CreateLove();
+      gs->shapes[i] = CreateLove(gs->streak);
     }
 
     gs->needsReset = false;
@@ -48,11 +45,11 @@ void CollectLove(OrbitInput *obi, GameState *gs) {
   for (int i = 2; i < gs->numShapes; i++) {
     if (intersect(gs->shapes[1], gs->shapes[i])) {
       gs->score++;
-      gs->shapes[i] = CreateLove();
+      gs->shapes[i] = CreateLove(gs->streak);
     }
     if (gs->shapes[i].pos.x + gs->shapes[i].width > SCREEN_WIDTH) {
       gs->lives--;
-      gs->shapes[i] = CreateLove();
+      gs->shapes[i] = CreateLove(gs->streak);
     }
   }
 
@@ -70,9 +67,11 @@ void CollectLove(OrbitInput *obi, GameState *gs) {
 
   sprintf(gs->words[0].w, "%02d/%d", gs->score, MAX_LOVE);
 
-  if (gs->lives <= 0 || gs->score >= MAX_LOVE) {
-    gs->state = SELECTION;
+  if (gs->score >= MAX_LOVE || gs->lives < 0) {
+    gs->state = ENDING;
+    gs->win = gs->score >= MAX_LOVE;
   }
+  
   if (gs->state != COLLECT_LOVE) {
     Reset(gs);
   }

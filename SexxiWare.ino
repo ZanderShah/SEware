@@ -45,19 +45,27 @@ typedef struct {
 typedef struct {
   int state;
   int selected;
-  int numWords;
-  Word *words;
-  int numShapes;
-  Shape *shapes;
+
+  bool needsReset, partyReset;
+  int difficultySelected;
+
   int score;
   int lives; 
-  bool needsReset, partyReset;
+  int streak;
+  bool win;
+  
+  int numWords;
+  Word *words;
+  
+  int numShapes;
+  Shape *shapes;
 } GameState;
 
 OrbitInput obi;
 GameState gs;
 
-void (*level[TOTAL_LEVELS]) (OrbitInput *obi, GameState *gs);
+void (*level[TOTAL_LEVELS + 1]) (OrbitInput *obi, GameState *gs);
+int collectNoise = 1;
 
 void setup() {
   UIsetup();
@@ -75,12 +83,10 @@ void setup() {
   level[5] = LockPicker;
   level[6] = GooseJumper;
   level[7] = GooseFisher;
+  level[8] = Ending;
 }
 
 void loop() {
-  // time(NULL) doesn't work and theres basically no difference when its in the main loop
-  srand((time_t) millis());
-  
   UIloop(&obi);
   
   (*level[gs.state])(&obi, &gs);

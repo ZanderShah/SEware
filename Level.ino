@@ -1,10 +1,12 @@
+int prevMillis;
+
 void SetMemory(GameState *gs, int words, int shapes) {
   gs->numWords = words;
   gs->words = (Word*) malloc(sizeof(Word) * gs->numWords);
   gs->numShapes = shapes;
   gs->shapes = (Shape*) malloc(sizeof(Shape) * gs->numShapes);
 }
-
+  
 void Reset(GameState *gs) {
   free(gs->words);
   gs->words = NULL;
@@ -15,7 +17,7 @@ void Reset(GameState *gs) {
   for (int i = 0; i < LED_COUNT; i++) {
     digitalWrite(LEDS[i], LOW);
   }
-
+  
   gs->needsReset = true;
 }
 
@@ -46,13 +48,11 @@ bool intersect(Shape i, Shape j) {
     && abs(i.pos.y + i.height / 2 - j.pos.y - j.height / 2) <= i.height / 2;
 }
 
-int prevMillis;
-
-int GetElapsedTime(){
-  return millis()-prevMillis;
+int GetGlobalElapsedTime() {
+  return millis() - prevMillis;
 }
 
-int UpdateElapsedTime(){
+int UpdateGlobalElapsedTime() {
   prevMillis = millis();
 }
 
