@@ -21,12 +21,6 @@ typedef struct {
 
 typedef struct {
   int x, y;
-  bool visible;
-  char w[20];
-} Word;
-
-typedef struct {
-  int x, y;
   double dX, dY;
   double vX, vY;
   double prevTime;
@@ -35,11 +29,17 @@ typedef struct {
 } Position;
 
 typedef struct {
+  Position pos;
+  bool visible;
+  char w[MAX_LENGTH];
+} Word;
+
+typedef struct {
   int type;
   Position pos;
   int width, height;  
   bool visible; 
-  bool bmp[32][32];
+  bool bmp[MAX_LENGTH][MAX_LENGTH];
 } Shape;
 
 typedef struct {

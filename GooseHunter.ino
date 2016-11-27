@@ -6,7 +6,7 @@ void GooseHunter(OrbitInput *obi, GameState *gs) {
     gs->score = 0;
     gs->lives = 10;
 
-    gs->words[0] = { 0, 0, true };
+    gs->words[0] = { { 0, 0, 0, 0 }, true };
     
     gs->shapes[0] = { 2, { 0, 1, 0, 1, 100 + 25 * gs->streak, 0, millis() }, 29, 29, true };
     for (int i = 1; i < 4; i++) {
@@ -57,7 +57,7 @@ void GooseHunter(OrbitInput *obi, GameState *gs) {
     gs->shapes[i].pos.dX = gs->shapes[i].pos.x;
   }
 
-  if (obi->buttons[0] && !obi->pastButtons[0] && animationTimer <= 0) {
+  if (((obi->buttons[0] && !obi->pastButtons[0]) || (obi->buttons[1] && !obi->pastButtons[1]) ) && animationTimer <= 0) {
     animationTimer = COOLDOWN;
     gs->lives--;
     if (intersect(gs->shapes[4], gs->shapes[2])) {

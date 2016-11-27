@@ -1,21 +1,29 @@
 void Selection(OrbitInput *obi, GameState *gs) {
   if (gs->needsReset) {
-    SetMemory(gs, 2, 0);
+    SetMemory(gs, 2, 1);
 
-    gs->words[0] = { 0, 0, true };
-    strcpy(gs->words[0].w, "GAME SELECTION");
-    gs->words[1] = { 0, 10, true };
+    gs->words[0] = { { 0, 0 }, true };
+    gs->words[1] = { { 0, 10 }, true };
+
+    gs->shapes[0] = { 2, { 0, 0, 0, 0, 0, 10, millis() }, 0, 0, false };
 
     gs->needsReset = false;
   }
 
-  strcpy(gs->words[1].w, LEVEL_NAMES[gs->selected]);
-
-  if (obi->buttons[1] && !obi->pastButtons[1]) {
-    gs->selected = (gs->selected + 1) % (TOTAL_LEVELS - 2);
+  UpdatePosition(&(gs->shapes[0].pos));
+  if (gs->shapes[0].pos.y > SCREEN_HEIGHT) {
+    gs->shapes[0].pos.y = 0;
+    gs->shapes[0].pos.dY = 0;
   }
-  if (obi->buttons[0] && !obi->pastButtons[0]) {
-    gs->state = gs->selected + 2;
+  
+  strcpy(gs->words[0].w, LEVEL_NAMES[gs->selected]);
+  strcpy(gs->words[1].w, GAME_DETAILS[gs->selected][gs->shapes[0].pos.y >= SCREEN_HEIGHT / 2]);
+  
+  if (obi->buttons[1] && !obi->pastButtons[1]) {
+    gs->selected = (gs->selected + 1) % (TOTAL_LEVELS - 1);
+  }
+  if (obi->buttons[0] && !obi->pastButtons[0] && gs->selected != 0) {
+    gs->state = gs->selected + 1;
   } 
 
   if (gs->state != SELECTION) {

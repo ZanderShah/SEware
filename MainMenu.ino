@@ -2,11 +2,12 @@ void MainMenu(OrbitInput *obi, GameState *gs) {
   if (gs->needsReset) {
     SetMemory(gs, 4, 0);
 
-    gs->words[0] = { 20, 0, true };
+    gs->words[0] = { { 20, 0, 20, 0 }, true };
     strcpy(gs->words[0].w, "~SEXXIWARE~");
-    gs->words[1] = { 20, 10, true };
+    gs->words[1] = { { 20, 10, 20, 10 }, true };
     strcpy(gs->words[1].w, ">>TURN UP<<");
-    gs->words[2] = { 5, 20, true };
+    gs->words[2] = { { 5, 20, 5, 20 }, true };
+    gs->words[3] = { { 0 }, false };
 
     gs->streak = 1;
 

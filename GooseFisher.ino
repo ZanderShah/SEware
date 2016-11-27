@@ -8,7 +8,7 @@ void GooseFisher(OrbitInput *obi, GameState *gs) {
     SetMemory(gs, 1, 5);
     gs->score = 0;
     
-    gs->words[0] = { 0, 0, false };
+    gs->words[0] = { { 0, 0, 0, 0 }, false };
     strcpy(gs->words[0].w, "Caught!");
     
     // Fisherman

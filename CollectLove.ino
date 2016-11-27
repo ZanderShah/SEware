@@ -16,7 +16,7 @@ void CollectLove(OrbitInput *obi, GameState *gs) {
     gs->score = 0;
     gs->lives = 4;
 
-    gs->words[0] = { 0, 0, true };
+    gs->words[0] = { { 0, 0, 0, 0 }, true };
 
     gs->shapes[0] = { 1, { 120, 0, 120, 0, 0, 0, millis() }, 0, 32, true };
     gs->shapes[1] = { 2, { 115, 10, 115, 10, 0, 0, millis() }, 5, 5, true };

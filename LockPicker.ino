@@ -8,9 +8,9 @@ void LockPicker(OrbitInput *obi, GameState *gs) {
     SetMemory(gs, 2, 2);
     gs->score = 0;
 
-    gs->words[0] = { 0, 0, true };
+    gs->words[0] = { { 0, 0, 0, 0 }, true };
     strcpy(gs->words[0].w, "PICK THE LOCKS ~");
-    gs->words[1] = { 0, 20, true };
+    gs->words[1] = { { 0, 20, 0, 20 }, true };
     strcpy(gs->words[1].w, "|");
 
     gs->shapes[0] = { 1, { 0, 20, 0, 20, 0, 0, millis() }, SCREEN_WIDTH, 1, true };
@@ -32,7 +32,7 @@ void LockPicker(OrbitInput *obi, GameState *gs) {
     UpdateGlobalElapsedTime();
   }
 
-  gs->words[1].x = (int) (obi->potential / MAX_POTENTIAL * SCREEN_WIDTH);
+  gs->words[1].pos.x = (int) (obi->potential / MAX_POTENTIAL * SCREEN_WIDTH);
   
   if (fabs(obi->potential - solution[gs->score]) < EPS) {
     digitalWrite(LEDS[0], HIGH);

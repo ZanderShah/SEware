@@ -3,6 +3,7 @@
 
 const int SCREEN_WIDTH = 128;
 const int SCREEN_HEIGHT = 32;
+const int MAX_LENGTH = 32;
 
 const int TOTAL_LEVELS = 8;
 const int MAIN_MENU = 0;
@@ -27,11 +28,12 @@ const uint32_t LEDS[] = { GREEN_LED, PB_5, PD_6, PC_7, PC_6 };
 const int HYPE_THRESHOLD = 1250;
 const char *HYPE[] = { "----", "====", "####" };
 
-const char *LEVEL_NAMES[] = { "PARTY MODE", "GOOSE HUNTER", "COLLECT LOVE", "LOCK PICKER", "GOOSE JUMPER", "GOOSE FISHER" };
+const char LEVEL_NAMES[TOTAL_LEVELS - 1][MAX_LENGTH] = { "INSTRUCTIONS", "PARTY MODE", "GOOSE HUNTER", "COLLECT LOVE", "LOCK PICKER", "GOOSE JUMPER", "GOOSE FISHER"  };
+const char GAME_DETAILS[TOTAL_LEVELS - 1][2][MAX_LENGTH] = { {"BTN1 to select", "BTN2 to cycle" }, { "endless partying", "slowly speeds up" }, { "BTNS to shoot", "don't waste ammo" }, { "BTNS to move ^,v", "POT to move <,>" }, {"POT to move <,>", "BTNS to unlock" }, { "BTNS to jump", "dodge everything" }, { "BTNS to fish", "careful" } };
 
 const int EPS = 35;
 const int COOLDOWN = 125;
 
-const int MAX_LOVE = 20;
+const int MAX_LOVE = 10;
 
 #endif

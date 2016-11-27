@@ -25,7 +25,7 @@ void GUIloop(GameState *gs) {
   
   for (int i = 0; i < gs->numWords; i++) {
     if (gs->words[i].visible) {
-      OrbitOledMoveTo(gs->words[i].x, gs->words[i].y);
+      OrbitOledMoveTo(gs->words[i].pos.x, gs->words[i].pos.y);
       OrbitOledDrawString(gs->words[i].w);
     }
   }
