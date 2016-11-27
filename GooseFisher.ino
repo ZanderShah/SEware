@@ -51,7 +51,7 @@ void GooseFisher(OrbitInput *obi, GameState *gs) {
       }
     }
     
-    timeToFish = rand() % 6000 + 3500 - 500 * gs->streak;
+    timeToFish = rand() % 6000 + 3500 - 400 * gs->streak;
     fishCatchInterval = 1100 - 100 * gs->streak;
     timeElapsed = 0;
     gs->needsReset = false;
@@ -60,6 +60,7 @@ void GooseFisher(OrbitInput *obi, GameState *gs) {
   }
   
   timeElapsed += GetGlobalElapsedTime();
+  
   if (timeElapsed >= 500) {
     timeElapsed = 0;
     if (currentWater == 1) {

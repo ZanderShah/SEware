@@ -32,6 +32,9 @@ void Party(OrbitInput *obi, GameState *gs) {
 
   if (gs->selected == TOTAL_LEVELS) {
     gs->streak++;
+    if (gs->streak > 8) {
+      gs->streak = 8;
+    }
     gs->partyReset = true;
     Reset(gs);
   }

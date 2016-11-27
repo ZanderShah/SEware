@@ -30,6 +30,7 @@ const char *HYPE[] = { "----", "====", "####" };
 
 const char LEVEL_NAMES[TOTAL_LEVELS - 1][MAX_LENGTH] = { "INSTRUCTIONS", "PARTY MODE", "GOOSE HUNTER", "COLLECT LOVE", "LOCK PICKER", "GOOSE JUMPER", "GOOSE FISHER"  };
 const char GAME_DETAILS[TOTAL_LEVELS - 1][2][MAX_LENGTH] = { {"BTN1 to select", "BTN2 to cycle" }, { "endless partying", "slowly speeds up" }, { "BTNS to shoot", "don't waste ammo" }, { "BTNS to move ^,v", "POT to move <,>" }, {"POT to move <,>", "BTNS to unlock" }, { "BTNS to jump", "dodge everything" }, { "BTNS to fish", "careful" } };
+const char DIFFICULTY_NAMES[8][3] = { "1A", "1B", "2A", "2B", "3A", "3B", "4A", "4B" };
 
 const int EPS = 35;
 const int COOLDOWN = 125;

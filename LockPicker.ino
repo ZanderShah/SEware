@@ -26,8 +26,8 @@ void LockPicker(OrbitInput *obi, GameState *gs) {
     //time remaining bar
     gs->shapes[1] = { 1, { 0, 10, 0, 10, 0, 0, millis() }, SCREEN_WIDTH, 2, true };
 
-    maxTime = 30000 - 5000 * gs->streak;
-    timeLeft = 30000 - 5000 * gs->streak;
+    maxTime = 30000 - 3250 * gs->streak;
+    timeLeft = 30000 - 3250 * gs->streak;
     gs->needsReset = false;
     UpdateGlobalElapsedTime();
   }
