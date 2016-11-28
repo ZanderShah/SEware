@@ -70,6 +70,9 @@ int collectNoise = 1;
 void setup() {
   UIsetup();
   GUIsetup();
+
+  WireInit();
+  ShakeInit();
   
   gs.state = MAIN_MENU;
   gs.needsReset = true;
@@ -88,7 +91,7 @@ void setup() {
 
 void loop() {
   UIloop(&obi);
-  
+
   (*level[gs.state])(&obi, &gs);
   
   GUIloop(&gs);

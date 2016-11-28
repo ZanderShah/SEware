@@ -19,5 +19,6 @@ void UIloop(OrbitInput *obi) {
     obi->buttons[i] = digitalRead(BUTTONS[i]);
   }
   obi->potential = analogRead(POTENTIOMETER);
+  ShakeTick();
 }
 

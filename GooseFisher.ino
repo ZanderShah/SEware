@@ -6,7 +6,6 @@ int fishCatchInterval = 1100;
 void GooseFisher(OrbitInput *obi, GameState *gs) {
   if (gs->needsReset) {
     SetMemory(gs, 1, 5);
-    gs->score = 0;
     
     gs->words[0] = { { 0, 0, 0, 0 }, false };
     strcpy(gs->words[0].w, "Caught!");
@@ -57,8 +56,6 @@ void GooseFisher(OrbitInput *obi, GameState *gs) {
     gs->needsReset = false;
     UpdateGlobalElapsedTime();
     gs->score = 0;
-    WireInit();
-    ShakeInit();
   }
   
   timeElapsed += GetGlobalElapsedTime();
@@ -102,7 +99,7 @@ void GooseFisher(OrbitInput *obi, GameState *gs) {
       gs->shapes[4].visible = true;
       gs->shapes[3].visible = false;
       gs->shapes[4].pos.vX =- 15;
-    }else if (ShakeIsShaking && timeToFish >0){
+    } else if (ShakeIsShaking() && timeToFish > 0){
       gs->state = ENDING;
       gs->win = false;
     }
@@ -115,7 +112,7 @@ void GooseFisher(OrbitInput *obi, GameState *gs) {
   }
 
   UpdateGlobalElapsedTime();
-  ShakeTick();
+  
   if (gs->state != GOOSE_FISHER) {
     Reset(gs);
   }
