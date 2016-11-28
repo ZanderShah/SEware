@@ -44,7 +44,7 @@ void GooseFisher(OrbitInput *obi, GameState *gs) {
    }
 
     // Fish
-    gs->shapes[4] = { 2, { 58, 15, 15, 12, 0, 0, millis(), 0, 0 }, 12, 8, false };
+    gs->shapes[4] = { 2, { 58, 15, 58, 15, 0, 0, millis(), 0, 0 }, 12, 8, false };
     for (int r = 0; r < 8; r++) {
       for (int c = 0; c < 12; c++) {
         gs->shapes[4].bmp[r][c] = FISH[r][c];
@@ -57,6 +57,8 @@ void GooseFisher(OrbitInput *obi, GameState *gs) {
     gs->needsReset = false;
     UpdateGlobalElapsedTime();
     gs->score = 0;
+    WireInit();
+    ShakeInit();
   }
   
   timeElapsed += GetGlobalElapsedTime();
@@ -99,7 +101,7 @@ void GooseFisher(OrbitInput *obi, GameState *gs) {
       gs->words[0].visible = true;
       gs->shapes[4].visible = true;
       gs->shapes[3].visible = false;
-      gs->shapes[4].pos.vX =- 10;
+      gs->shapes[4].pos.vX =- 15;
     }
   } else {
     if (gs->shapes[4].pos.x <= 10) {
@@ -110,7 +112,7 @@ void GooseFisher(OrbitInput *obi, GameState *gs) {
   }
 
   UpdateGlobalElapsedTime();
-  
+  ShakeTick();
   if (gs->state != GOOSE_FISHER) {
     Reset(gs);
   }

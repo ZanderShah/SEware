@@ -7,7 +7,7 @@ void WireWriteByte(int address, uint8_t value);
 static float const    SensorMaximumReading= 512.0;
 static float const    SensorMaximumAccel  = 9.81 * 4.0;
 static uint8_t const  SensorAccelerometer = 0x1D;
-static uint32_t const ShakeThreshold      = 1;
+static uint32_t const ShakeThreshold      = 16;
 static float          ShakeAccumulator    = 0;
 
 void ShakeInit()
