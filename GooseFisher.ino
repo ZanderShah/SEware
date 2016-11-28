@@ -96,12 +96,15 @@ void GooseFisher(OrbitInput *obi, GameState *gs) {
       gs->win = false;
     }
   
-    if ((ShakeIsShaking() || obi->buttons[0]) && timeToFish < 0) {
+    if (ShakeIsShaking() && timeToFish < 0) {
       gs->score++;
       gs->words[0].visible = true;
       gs->shapes[4].visible = true;
       gs->shapes[3].visible = false;
       gs->shapes[4].pos.vX =- 15;
+    }else if (ShakeIsShaking && timeToFish >0){
+      gs->state = ENDING;
+      gs->win = false;
     }
   } else {
     if (gs->shapes[4].pos.x <= 10) {
