@@ -9,6 +9,7 @@
 #include <math.h>
 #include <stdlib.h>
 #include <time.h>
+#include <Wire.h>
 #include "Constants.h"
 #include "Pictures.h"
 
@@ -17,6 +18,7 @@ typedef struct {
   bool pastButtons[BUTTON_COUNT];
   bool buttons[BUTTON_COUNT];
   float potential;
+  float shake;
 } OrbitInput;
 
 typedef struct {
@@ -70,9 +72,6 @@ int collectNoise = 1;
 void setup() {
   UIsetup();
   GUIsetup();
-
-  WireInit();
-  ShakeInit();
   
   gs.state = MAIN_MENU;
   gs.needsReset = true;

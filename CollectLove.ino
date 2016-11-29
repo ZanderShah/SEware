@@ -16,15 +16,21 @@ void CollectLove(OrbitInput *obi, GameState *gs) {
     gs->score = 0;
     gs->lives = 4;
 
+    // Score
     gs->words[0] = { { 0, 0, 0, 0 }, true };
 
+    // Wall
     gs->shapes[0] = { 1, { 120, 0, 120, 0, 0, 0, millis() }, 0, 32, true };
+    
+    // Basket
     gs->shapes[1] = { 2, { 115, 10, 115, 10, 0, 0, millis() }, 5, 5, true };
     for (int i = 0; i < gs->shapes[1].height; i++) {
       for (int j = 0; j < gs->shapes[1].width; j++) {
         gs->shapes[1].bmp[i][j] = BASKET[i][j];
       }
     }
+    
+    // Love
     for (int i = 2; i < gs->numShapes; i++) {
       gs->shapes[i] = CreateLoveShape(gs->streak);
     }

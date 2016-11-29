@@ -6,19 +6,21 @@ void GooseHunter(OrbitInput *obi, GameState *gs) {
     gs->score = 0;
     gs->lives = 10;
 
+    // Ammo
     gs->words[0] = { { 0, 0, 0, 0 }, true };
-    
+
+    // Crosshair
     gs->shapes[0] = { 2, { 0, 1, 0, 1, 100 + 25 * gs->streak, 0, millis() }, 29, 29, true };
-    for (int i = 1; i < 4; i++) {
-      gs->shapes[i] = { 2, { 11, 12, 11, 12, 0, 0, millis() }, 7, 7, false };
-    }
-   
     for (int i = 0; i < gs->shapes[0].height; i++) {
       for (int j = 0; j < gs->shapes[0].width; j++) {
         gs->shapes[0].bmp[i][j] = CROSSHAIR[i][j];
       }
     }
     
+    // Firing animations
+    for (int i = 1; i < 4; i++) {
+      gs->shapes[i] = { 2, { 11, 12, 11, 12, 0, 0, millis() }, 7, 7, false };
+    }
     for (int i = 1; i < 4; i++) {
       for (int j = 0; j < gs->shapes[i].height; j++) {
         for (int k = 0; k < gs->shapes[i].width; k++) {
@@ -27,6 +29,7 @@ void GooseHunter(OrbitInput *obi, GameState *gs) {
       }
     }
 
+    // Goose
     gs->shapes[4] = { 2, { rand() % 100, 5, 50, 5, (rand() % 2 == 0 ? 1 : -1) * 100 + 25 * gs->streak, 0, millis() }, 21, 23, true };
     for (int i = 0; i < gs->shapes[4].height; i++) {
       for (int j = 0; j < gs->shapes[4].width; j++) {
@@ -41,6 +44,7 @@ void GooseHunter(OrbitInput *obi, GameState *gs) {
     UpdatePosition(&(gs->shapes[i].pos));
   }
 
+  // Bounces goose and crosshair back and forth
   if (gs->shapes[0].pos.x <= 0) {
     gs->shapes[0].pos.vX = 100 + 25 * gs->streak;
   } else if (gs->shapes[0].pos.x + gs->shapes[0].width >= SCREEN_WIDTH) {
@@ -51,7 +55,8 @@ void GooseHunter(OrbitInput *obi, GameState *gs) {
   } else if (gs->shapes[4].pos.x + gs->shapes[4].width >= SCREEN_WIDTH) {
     gs->shapes[4].pos.vX = -(gs->score * 75 + 100 + 25 * gs->streak);
   }
-  
+
+  // Moves animations along with crosshair
   for (int i = 1; i < 4; i++) {
     gs->shapes[i].pos.x = gs->shapes[0].pos.x + 11;
     gs->shapes[i].pos.dX = gs->shapes[i].pos.x;

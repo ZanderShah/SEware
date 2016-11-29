@@ -15,7 +15,7 @@ void LockPicker(OrbitInput *obi, GameState *gs) {
 
     gs->shapes[0] = { 1, { 0, 20, 0, 20, 0, 0, millis() }, SCREEN_WIDTH, 1, true };
 
-
+    // Randomly generate solutions
     for (int i = 0; i < 4; i++) {
       solution[i] = (rand() % (4000 + 1 - 100)) + 100;
       while (i > 0 && fabs(solution[i] - solution[i - 1]) < 500) {
@@ -23,7 +23,7 @@ void LockPicker(OrbitInput *obi, GameState *gs) {
       }
     }
 
-    //time remaining bar
+    // Time remaining bar
     gs->shapes[1] = { 1, { 0, 10, 0, 10, 0, 0, millis() }, SCREEN_WIDTH, 2, true };
 
     maxTime = 30000 - 3250 * gs->streak;

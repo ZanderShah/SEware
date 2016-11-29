@@ -30,7 +30,6 @@ void GooseJumper(OrbitInput *obi, GameState *gs) {
     gs->shapes[0] = { 1, { 0, 31, 0, 31, 0, 0, millis() }, 150, 3, true };
     // Goose
     gs->shapes[1] = { 2, { 150, 22, 150, 22, -20 - 7 * gs->streak, 0, millis() }, 10, 8, true };
-    
     for (int r = 0; r < 8; r++) {
       for (int c = 0; c < 10; c++) {
         gs->shapes[1].bmp[r][c] = SMALL_GOOSE[r][c];
@@ -53,7 +52,7 @@ void GooseJumper(OrbitInput *obi, GameState *gs) {
       }
     }
 
-    //Finish bar
+    // Finish bar
     gs->shapes[4] = { 2, { levelLength, 22, levelLength, 22, -20 - 7 * gs->streak, 0, millis() }, 100, 20, false };
 
     //Progress bar

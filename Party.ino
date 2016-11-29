@@ -2,6 +2,7 @@ int order[TOTAL_LEVELS];
 
 void Party(OrbitInput *obi, GameState *gs) {
   if (gs->partyReset) {
+    // Randomly shuffle levels
     for (int i = 3; i < TOTAL_LEVELS; i++)
       order[i] = i;
     for (int i = 3; i < TOTAL_LEVELS; i++) {
@@ -30,6 +31,7 @@ void Party(OrbitInput *obi, GameState *gs) {
     }
   }
 
+  // Keep running until they lose
   if (gs->selected == TOTAL_LEVELS) {
     gs->streak++;
     if (gs->streak > 8) {

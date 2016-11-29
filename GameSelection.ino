@@ -2,10 +2,14 @@ void Selection(OrbitInput *obi, GameState *gs) {
   if (gs->needsReset) {
     SetMemory(gs, 3, 1);
 
+    // Name
     gs->words[0] = { { 0, 0 }, true };
+    // Instructions
     gs->words[1] = { { 0, 10 }, true };
+    // Difficulty
     gs->words[2] = { { 0, 20 }, true };
 
+    // Timer for instructions
     gs->shapes[0] = { 2, { 0, 0, 0, 0, 0, 10, millis() }, 0, 0, false };
 
     gs->needsReset = false;
